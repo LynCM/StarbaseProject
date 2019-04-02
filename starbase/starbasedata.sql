@@ -177,7 +177,7 @@ INSERT INTO Crew_Member Values
 
 INSERT INTO Manufacturers Values
 (1, 'MakeCraft'),
-(4, 'StarParts');
+(2, 'StarParts');
 
 INSERT INTO Location Values
 ('Earth', 50, 50, 50),
