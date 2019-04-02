@@ -1,4 +1,6 @@
 
+<html>
+<body>
 
 <?php
 
@@ -27,3 +29,8 @@ if (mysqli_connect_errno($con))
 
 mysqli_close($con);
 ?>
+
+<a href="login.php">Return home</a>
+
+</body>
+</html>
