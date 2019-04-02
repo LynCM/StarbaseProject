@@ -7,7 +7,6 @@
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS */;
-/*!40014 SET FOREIGN_KEY_CHECKS=0 */;
 
 
 # Host: localhost    Database: starbase
@@ -17,6 +16,8 @@
 DROP DATABASE IF EXISTS `starbase`;
 CREATE DATABASE `starbase` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `starbase`;
+
+SET FOREIGN_KEY_CHECKS=1;
 
 #
 # Source for table users
@@ -45,9 +46,10 @@ Create Table If Not Exists Location(
 	Constraint Location_PK Primary Key(Name)
 );
 Create Table If Not Exists Manufacturers(
-	Spacecraft_ID			Integer,
+	Spacecraft_ID			Integer NOT NULL,
 	Manufacturer_Name		Varchar(100),
-	Constraint Manufacturers_PK Primary Key(Spacecraft_ID, Manufacturer_Name)
+	Constraint Manufacturers_PK Primary Key(Spacecraft_ID, Manufacturer_Name),
+	Constraint Manufacturers_Spacecraft_FK Foreign Key(Spacecraft_ID) References Spacecraft(Spacecraft_ID)
 );
 Create Table If Not Exists Module(
 	Spacecraft_ID			Integer,
@@ -74,7 +76,6 @@ Create Table If Not Exists Cargo(
 	Constraint Cargo_PK Primary Key(Cargo_ID),
 	Constraint Cargo_Spacecraft_FK Foreign Key(Spacecraft_ID) References Spacecraft(Spacecraft_ID),
 	Constraint Cargo_Owner_FK Foreign Key(Owner_PID) References Person(PID)
-
 );
 
 Create Table If Not Exists Crew_Member(
@@ -163,11 +164,20 @@ Create Table If Not Exists Transports(
 #
 
 INSERT INTO Person (First_Name, Last_Name, Type) Values
-('Celina', 'Ma', 'Ground Control');
+('Celina', 'Ma', 'Ground Control'),
+('Crew', 'Member', 'Crew');
+
 
 INSERT INTO Spacecraft (Name, Tonnage, Max_Occupancy) Values
 ('ImAShip', 1000, 50),
 ('AlsoAShip', 2000, 80);
+
+INSERT INTO Crew_Member Values
+(2, 'Captain', 1);
+
+INSERT INTO Manufacturers Values
+(1, 'MakeCraft'),
+(4, 'StarParts');
 
 INSERT INTO Location Values
 ('Earth', 50, 50, 50),

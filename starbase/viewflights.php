@@ -1,8 +1,7 @@
 <html>
 <body>
 
-<p>Displaying client user info up here would be good if we have a login system</p>
-
+<p>Listing all flights</p>
 
 <?php
 
@@ -52,7 +51,7 @@ while($row = mysqli_fetch_array($result))
   echo "<td>" . $row['End_Time'] . "</td>";
   echo "<td>" . $row['Budget'] . "</td>";
   echo "<td>" . $row['Spacecraft_ID'] . "</td>";
-  echo "<td><a href='update.php?ID= " . $row['ID'] . "'>Book</a></td>";
+  echo "<td><a href='book.php?ID= " . $row['ID'] . "'>Book</a></td>";
 //  echo "<td><a onClick= \"return confirm('Do you want to delete this user?')\" href='view.php?job=delete&amp;ID= " . $row['ID'] . "'>DELETE</a></td>";
 
   echo "</tr>";

@@ -1,7 +1,7 @@
 <html>
 <body>
 
-
+<p>these links don't go anywhere yet</p>
 
 <form action="add.php" method="post">
    Name: <input type="text" name="name"><br>
