@@ -25,7 +25,7 @@ SET FOREIGN_KEY_CHECKS=1;
 
 Create Table If Not Exists Spacecraft(
 	Spacecraft_ID		Integer NOT NULL AUTO_INCREMENT,
-	Name				Varchar(100),
+	Name				Varchar(100) UNIQUE,
 	Tonnage				Integer,
 	Max_Occupancy		Integer,
 	Constraint Spacecraft_PK Primary Key(Spacecraft_ID)
@@ -33,8 +33,10 @@ Create Table If Not Exists Spacecraft(
 
 Create Table If Not Exists Person(
 	PID						Integer AUTO_INCREMENT,
+	Username			Varchar(30) UNIQUE,
 	First_Name				Varchar(100),
 	Last_Name				Varchar(100),
+	Password				Varchar(30),
 	Type					Varchar(100),
 	Constraint Person_PK Primary Key(PID)
 );
@@ -163,9 +165,10 @@ Create Table If Not Exists Transports(
 # Initial data population
 #
 
-INSERT INTO Person (First_Name, Last_Name, Type) Values
-('Celina', 'Ma', 'Ground Control'),
-('Crew', 'Member', 'Crew');
+INSERT INTO Person (First_Name, Last_Name, Username, Password, Type) Values
+('Celina', 'Ma', 'LynCM', 'admin', 'Ground Control'),
+('Super', 'User', 'Admin', 'admin', 'Ground Control'),
+('Captain', 'Holt', 'TheCaptain', 'admin', 'Crew');
 
 
 INSERT INTO Spacecraft (Name, Tonnage, Max_Occupancy) Values
@@ -176,7 +179,7 @@ INSERT INTO Spaceship Values
 (1, 'SomeModel', 'Touring', NULL);
 
 INSERT INTO Crew_Member Values
-(2, 'Captain', 1);
+(3, 'Captain', 1);
 
 INSERT INTO Manufacturers Values
 (1, 'MakeCraft'),

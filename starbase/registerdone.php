@@ -1,4 +1,6 @@
 
+<html>
+<body>
 
 <?php
 
@@ -6,6 +8,8 @@
 
 $fname = $_POST["fname"];
 $lname = $_POST["lname"];
+$username = $_POST["username"];
+$password = $_POST["password"];
 
 // Create connection
 $con=mysqli_connect("localhost","root","pancakes","starbase");
@@ -16,7 +20,8 @@ if (mysqli_connect_errno($con))
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
 
-  $sql = "INSERT INTO Person (First_Name, Last_Name, Type) VALUES ('". $fname."','". $lname ."', 'Client')";
+  $sql = "INSERT INTO Person (Username, Password, First_Name, Last_Name, Type)
+           VALUES ('". $username."','". $password."', '". $fname."','". $lname ."', 'Client')";
 
  if (!mysqli_query($con,$sql))
   {
@@ -27,3 +32,8 @@ if (mysqli_connect_errno($con))
 
 mysqli_close($con);
 ?>
+
+<a href="login.php">Return home</a>
+
+</body>
+</html>
