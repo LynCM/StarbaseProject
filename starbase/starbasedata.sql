@@ -172,6 +172,9 @@ INSERT INTO Spacecraft (Name, Tonnage, Max_Occupancy) Values
 ('ImAShip', 1000, 50),
 ('AlsoAShip', 2000, 80);
 
+INSERT INTO Spaceship Values
+(1, 'SomeModel', 'Touring', NULL);
+
 INSERT INTO Crew_Member Values
 (2, 'Captain', 1);
 
