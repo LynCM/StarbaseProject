@@ -1,0 +1,127 @@
+Flight Crew:
+	Check Ship Assignment:
+	
+Select c.Assigned_Spacecraft
+From Crew_Member as c Natural Join Person as p
+Where c.PID = @PID or (p.First_Name = @First_Name and p.Last_Name = @Last_Name);
+	
+	Check Ship Flight Plans:
+	
+@Assigned_Spacecraft = 
+
+Select c.Assigned_Spacecraft
+From Crew_Member as c Natural Join Person as p
+Where c.PID = @PID or (p.First_Name = @First_Name and p.Last_Name = @Last_Name);
+
+Select *
+From Flight_Plan as f
+Where f.Spacecraft_ID = Assigned_Spacecraft;
+	
+	View Spacecraft Docked At:
+
+@Assigned_Spacecraft = 
+
+Select c.Assigned_Spacecraft
+From Crew_Member as c Natural Join Person as p
+Where c.PID = @PID or (p.First_Name = @First_Name and p.Last_Name = @Last_Name);
+
+Select s.Station_Docked_At
+From Spacecraft as s
+Where Spacecraft_ID = @Assigned_Spacecraft;
+	
+	Edit Spacecraft Location:
+	
+@Assigned_Spacecraft = 
+
+Select c.Assigned_Spacecraft
+From Crew_Member as c Natural Join Person as p
+Where c.PID = @PID or (p.First_Name = @First_Name and p.Last_Name = @Last_Name);
+
+Update Spaceship
+Set Station_Docked_At = @New_Station_Docked_At
+Where Spacecraft_ID = @Assigned_Spacecraft;
+	
+	View Cargo On Board:
+	
+@Assigned_Spacecraft = 
+
+Select c.Assigned_Spacecraft
+From Crew_Member as c Natural Join Person as p
+Where c.PID = @PID or (p.First_Name = @First_Name and p.Last_Name = @Last_Name);
+	
+Select c.*
+From Cargo as c
+Where c.Spacecraft_ID = @Assigned_Spacecraft
+	
+	Undock Cargo #NOT DONE:
+	
+Update Cargo
+Set Spacecraft_ID = 
+Where 
+	
+	Dock Cargo #NOT DONE, WANNA AVOID USING EXTERNAL PARAMS. GOAL: SWITCH CARGO FROM SHIP TO STATION ID. REVERSE FOR THE PRIOR:
+
+Update Cargo
+Set Spacecraft_ID = 
+Where 
+
+Client:
+	Flights:
+		View Flights
+			All Flights:
+			
+Select f.*
+From Flight_Plan as f;
+			
+			Your Flights:
+
+Select f.*
+From Flight_Plan as f, Transports as t
+Where f.Spacecraft_ID = t.Spacecraft_ID and f.Start_Time = t.Flight_Plan_Start_Time and f.End_Time = f.Flight_Plan_End_Time and Client_PID = @PID;
+			
+		Book Flights:
+		
+Insert Into Transports Values(flight_spacecraft, flight_startdate, flight_enddate, @Client_PID, @Seat_No)
+Select f.Spacecraft_ID, f.Start_Time, f.End_Time
+From Flight_Plan as f
+Where f.Spacecraft_ID = @Spacecraft_ID and f.Start_Time = @Flight_Plan_Start_Time and f.End_Time = @Flight_Plan_End_Time;
+		
+		Cancel Flights:
+		
+Delete From Transports
+Where f.Spacecraft_ID = @Spacecraft_ID and f.Start_Time = @Flight_Plan_Start_Time and f.End_Time = @Flight_Plan_End_Time and Client_PID = @PID;
+	
+	Contact Info:
+		Add Contact Info:
+		
+Insert Into Contact_Number Values(@PID, @Contact_Number);
+		
+		Remove Contact Info:
+		
+Delete From Contact_Number
+Where PID = @PID and Contact_Number = @Contact_Number;
+		
+		View Your Info:
+			View User Information:
+			
+Select p.*
+From Person as p
+Where p.PID = @PID;
+			
+			View Contact Numbers:
+			
+Select c.Contact_Number
+From Contact_Number as c
+Where c.PID = @PID;
+
+	Cargo:
+		Register Cargo:
+		
+Insert Into Cargo Values(@Cargo_ID, @Mass, @Is_Dangerous, @Description, @Spacecraft_ID, @Owner_PID); #@Spacecraft_ID Should be the current station, or a list of avaliable stations for them to drop their cargo off at!
+		
+		View Your Cargo:
+
+Select c.*
+From Cargo as c
+Where c.Owner_PID = @PID;
+
