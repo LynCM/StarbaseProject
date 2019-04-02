@@ -1,0 +1,12 @@
+<html>
+<body>
+
+<p>these links don't go anywhere yet</p>
+
+<form action="viewflights.php" method="post">
+   <input type="submit" value="View Available Flights">
+</form>
+
+
+</body>
+</html>
