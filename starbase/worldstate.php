@@ -14,18 +14,15 @@ if (mysqli_connect_errno($con))
   }
 
 print"Select which you would like to add to the database"
+//go to view ship instead first and then click add?
 ?>
 
 
 <form action="addloc.php?job=body" method="post">
-   <input name="ID" type="hidden" value=<?php echo $row['ID'];?>>
-   Name: <input type="text" name="name" value='<?php echo $row['Name'];?>'><br>
-   <input type="submit" value="Add Celestial Body">
+  <input type="submit" value="Add Celestial Body">
 </form>
 
-<form action="addloc.php?job=craft" method="post">
-   <input name="ID" type="hidden" value=<?php echo $row['ID'];?>>
-   Name: <input type="text" name="name" value='<?php echo $row['Name'];?>'><br>
+<form action="addcraft.php?job=craft" method="post">
    <input type="submit" value="Add Spacecraft">
 </form>
 

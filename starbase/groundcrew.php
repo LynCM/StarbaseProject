@@ -11,7 +11,21 @@
    <input type="submit" value="Assign Crew">
 </form>
 
+<form action="viewloc.php?job=planets" method="post">
+   <input type="submit" value="View Celestial Bodies">
+</form>
 
+<form action="viewloc.php?job=stations" method="post">
+   <input type="submit" value="View Space Stations">
+</form>
+
+<form action="viewloc.php?job=locations" method="post">
+   <input type="submit" value="View All Locations">
+</form>
+
+<form action="viewflights.php" method="post">
+   <input type="submit" value="View Flights">
+</form>
 
 </body>
 </html>
