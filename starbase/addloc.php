@@ -13,15 +13,19 @@ if (mysqli_connect_errno($con))
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
 
+
 print"Enter Entity Information";
 if($_GET["job"] == "submitted") {
-   $sql = 'INSERT INTO Location VALUES ($_POST["name"], $_POST["x"], $_POST["y"], $_POST["z"])';
-   $sql = 'INSERT INTO Celestial_Body VALUES ($_POST["name"], $_POST["radius"], $_POST["mass"])';
+   print($_POST["name"]);
+   print($_POST["x"]);
+   mysqli_query($con,'INSERT INTO Location Values ('.$_POST["name"].','. $_POST["x"].','. $_POST["y"].','. $_POST["z"].')');
+   mysqli_query($con,'INSERT INTO Celestial_Body Values ('.$_POST["name"].','. $_POST["radius"].','. $_POST["mass"].')');
+   //header("Location:viewloc.php?job=locations");
 }
 mysqli_close($con);
 ?>
 <form action="addloc.php?job=submitted" method="post">
-   <input name="Name" type="hidden" value=<?php echo $row['Name'];?>>
+   <input name="name" type="hidden" value=<?php echo $row['Name'];?>>
    Name: <input type="text" name="name" value='<?php echo $row['Name'];?>'><br>
    Radius: <input type="text" name="radius" value='<?php echo $row['Radius'];?>'><br>
    Mass: <input type="text" name="mass" value='<?php echo $row['Mass'];?>'><br>   
