@@ -97,17 +97,17 @@ Create Table If Not Exists Contact_Number(
 );
 Create Table If Not Exists Flight_Plan(
 	Spacecraft_ID			Integer,
-	Start_Time				Timestamp NOT NULL UNIQUE,
-	End_Time				Timestamp NOT NULL UNIQUE,
+	Start_Time				Timestamp NOT NULL,
+	End_Time				Timestamp NOT NULL,
 	Budget					Real,
 	Start_Location			Varchar(100),
 	Destination				Varchar(100),
 	Constraint Flight_Plan_PK Primary Key(Spacecraft_ID, Start_Time, End_Time),
+	Unique(Spacecraft_ID, Start_Time, End_Time),
 
 	Constraint Flight_Plan_Spaceship_FK Foreign Key(Spacecraft_ID) References Spaceship(Spacecraft_ID),
 	Constraint Flight_Plan_Start_Location_FK Foreign Key (Start_Location) References Location(Name),
 	Constraint Flight_Plan_Destination_FK Foreign Key(Destination) References Location(Name)
-
 );
 
 Create Table If Not Exists Celestial_Body(
@@ -138,26 +138,25 @@ Create Table If Not Exists Guided_By(
 
 Create Table If Not Exists Planned_By(
 	Spacecraft_ID			Integer,
-	Flight_Plan_Start_Time	Timestamp NOT NULL UNIQUE,
-	Flight_Plan_End_Time	Timestamp NOT NULL UNIQUE,
+	Flight_Plan_Start_Time	Timestamp NOT NULL,
+	Flight_Plan_End_Time	Timestamp NOT NULL,
 	Ground_Control_PID		Integer,
+	Unique(Spacecraft_ID, Flight_Plan_Start_Time, Flight_Plan_End_Time, Ground_Control_PID),
 	Constraint Planned_By_PK Primary Key(Spacecraft_ID, Flight_Plan_Start_Time, Flight_Plan_End_Time, Ground_Control_PID),
-	Constraint Planned_By_Craft_FK Foreign Key(Spacecraft_ID) References Spacecraft(Spacecraft_ID),
-	Constraint Planned_By_Start_Time_FK Foreign Key(Flight_Plan_Start_Time) References Flight_Plan(Start_Time),
-	Constraint Planned_By_End_Time_FK Foreign Key(Flight_Plan_End_Time) References Flight_Plan(End_Time),
+
+	Constraint Planned_By_FK Foreign Key(Spacecraft_ID, Flight_Plan_Start_Time, Flight_Plan_End_Time) References Flight_Plan(Spacecraft_ID, Start_Time, End_Time),
 	Constraint Planned_By_PID_FK Foreign Key(Ground_Control_PID) References Person(PID)
 );
 
 Create Table If Not Exists Transports(
 	Spacecraft_ID			Integer,
-	Flight_Plan_Start_Time	Timestamp NOT NULL UNIQUE,
-	Flight_Plan_End_Time	Timestamp NOT NULL UNIQUE,
+	Flight_Plan_Start_Time	Timestamp NOT NULL,
+	Flight_Plan_End_Time	Timestamp NOT NULL,
 	Client_PID				Integer,
-	Seat_No					Integer,
+	Seat_No					Integer UNIQUE AUTO_INCREMENT,
+	Unique(Spacecraft_ID, Flight_Plan_Start_Time, Flight_Plan_End_Time, Client_PID),
 	Constraint Transports_PK Primary Key(Spacecraft_ID, Flight_Plan_Start_Time, Flight_Plan_End_Time, Client_PID),
-	Constraint Transports_Craft_FK Foreign Key(Spacecraft_ID) References Spaceship(Spacecraft_ID),
-	Constraint Transports_Flight_Start_FK Foreign Key(Flight_Plan_Start_Time) References Flight_Plan(Start_Time),
-	Constraint Transports_Flight_End_FK Foreign Key(Flight_Plan_End_Time) References Flight_Plan(End_Time),
+	Constraint Transports_FlightPlan_FK Foreign Key(Spacecraft_ID, Flight_Plan_Start_Time, Flight_Plan_End_Time) References Flight_Plan(Spacecraft_ID, Start_Time, End_Time),
 	Constraint Transports_Client_PK Foreign Key(Client_PID) References Person(PID)
 );
 
@@ -168,7 +167,8 @@ Create Table If Not Exists Transports(
 INSERT INTO Person (First_Name, Last_Name, Username, Password, Type) Values
 ('Celina', 'Ma', 'LynCM', 'admin', 'Ground Control'),
 ('Super', 'User', 'Admin', 'admin', 'Ground Control'),
-('Captain', 'Holt', 'TheCaptain', 'admin', 'Crew');
+('Captain', 'Holt', 'TheCaptain', 'admin', 'Crew'),
+('Some', 'User', 'someuser', 'admin', 'Client');
 
 
 INSERT INTO Spacecraft (Name, Tonnage, Max_Occupancy) Values
@@ -176,7 +176,8 @@ INSERT INTO Spacecraft (Name, Tonnage, Max_Occupancy) Values
 ('AlsoAShip', 2000, 80);
 
 INSERT INTO Spaceship Values
-(1, 'SomeModel', 'Touring', NULL);
+(1, 'SomeModel', 'Touring', NULL),
+(2, 'AnotherModel', 'Touring', NULL);
 
 INSERT INTO Crew_Member Values
 (3, 'Captain', 1);
@@ -190,7 +191,10 @@ INSERT INTO Location Values
 ('Mars', 80, 80, 80);
 
 INSERT INTO Flight_Plan Values
-(1, '2019-04-15 15-00-00', '2019-04-18 18-00-00', 5000, 'Earth', 'Mars');
+(1, '2019-04-15 15-00-00', '2019-04-18 18-00-00', 5000, 'Earth', 'Mars'),
+(2, '2019-04-15 15-00-00', '2019-04-18 18-00-00', 5000, 'Mars', 'Earth');
+
+INSERT INTO Transports (Spacecraft_ID, Flight_Plan_Start_Time, Flight_Plan_End_Time, Client_PID) Values (1, '2019-04-15 15:00:00', '2019-04-18 18:00:00',4);
 
 
 #

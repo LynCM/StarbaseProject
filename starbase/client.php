@@ -30,9 +30,8 @@
     echo '<div><br><p>Your Flights</p></div>';
 
     $pid = $row['PID'];
-    $sql = "'SELECT * from (Flight_Plan as F JOIN Transports as T ON
-      (f.Spacecraft_ID = t.Spacecraft_ID and f.Start_Time = t.Flight_Plan_Start_Time and f.End_Time = f.Flight_Plan_End_Time)
-      where Client_PID ='". $pid ;
+    $sql = "SELECT * from (Flight_Plan as F JOIN Transports as T ON(f.Spacecraft_ID = t.Spacecraft_ID
+      and f.Start_Time = t.Flight_Plan_Start_Time and f.End_Time = t.Flight_Plan_End_Time)) WHERE Client_PID = $pid";
 
     // TODO: Adjust to display spacecraft name instead of ID (more user friendly), units for price and more readable time format?
     echo "<div><table border='1'>
@@ -54,9 +53,9 @@
         echo "<td>" . $row['End_Time'] . "</td>";
         echo "<td>" . $row['Budget'] . "</td>";
         echo "<td>" . $row['Spacecraft_ID'] . "</td>";
-        // TODO Adjust to actually display seat number and allow user to cancel booking
-        echo "<td>" . "filler" . "</td>";
-        echo "<td><a onClick= \"return confirm('Do you want to cancel your booking?')\" href='view.php?job=delete&amp;ID= " . $row['ID'] . "'>Cancel</a></td>";
+        // TODO allow user to cancel booking
+        echo "<td>" . $row['Seat_No'] . "</td>";
+        echo "<td><a onClick= \"return confirm('Do you want to cancel your booking?')\" href='client.php?job=delete&amp;ID= " . $row['ID'] . "'>Cancel</a></td>";
 
         echo "</tr>";
         }
@@ -100,8 +99,6 @@
   mysqli_close($con);    // Close connection
 
 ?>
-
-
 
 </body>
 </html>
