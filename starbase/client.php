@@ -35,8 +35,15 @@
                 Flight_Plan_Start_Time = '$starttime' and Flight_Plan_End_Time = '$endtime' and Client_PID = $pid");
     }
 
-    // Link to search for more flights
+    // If user removes their cargo
+    if ($_GET["job"] == "remove") {
+      $cargoid = $_GET['cargoid'];
+      mysqli_query($con, "DELETE FROM Cargo WHERE Cargo_ID = $cargoid");
+    }
+
+    // Link to search for more flights and add cargo
     echo '<div><br><button onclick="window.location.href = \'viewflights.php\';">Book Flights</button>';
+    echo '<div><br><button onclick="window.location.href = \'addcargo.php\';">Add Cargo</button>';
 
     // Display currently booked flights
     echo '<div><br><p>Your Flights</p></div>';
@@ -85,7 +92,7 @@
     <th>Mass</th>
     <th>Dangerous?</th>
     <th>Description</th>
-    <th>Spacecraft ID</th>
+    <th>Assigned Spacecraft ID</th>
     </tr>";
 
     if ($result = mysqli_query($con, $sql)) {      // If search returns something
@@ -95,10 +102,12 @@
         echo "<td>" . $row['Mass'] . "</td>";
         echo "<td>" . $row['Is_Dangerous'] . "</td>";
         echo "<td>" . $row['Description'] . "</td>";
-        echo "<td>" . $row['Spacecraft_ID'] . "</td>";
-        // TODO Make cargo removable??
-        echo "<td><a onClick= \"return confirm('Do you want to remove this cargo?')\" href='client.php?job=remove&amp;ID= " . $row['Cargo_ID'] . "'>Cancel</a></td>";
-
+        if ($row['Spacecraft_ID'] == NULL) {
+          echo "<td>Not assigned</td>";
+        } else {
+          echo "<td>" . $row['Spacecraft_ID'] . "</td>";
+        }
+        echo "<td><a onClick= \"return confirm('Do you want to remove this cargo?')\" href='client.php?job=remove&amp;cargoid= " . $row['Cargo_ID'] . "'>Remove</a></td>";
         echo "</tr>";
         }
     }

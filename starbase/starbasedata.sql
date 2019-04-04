@@ -72,7 +72,7 @@ Create Table If Not Exists Cargo(
 	Cargo_ID				Integer AUTO_INCREMENT,
 	Mass					Integer,
 	Is_Dangerous			Boolean,
-	Description				Varchar(10000),
+	Description				Varchar(30),
 	Spacecraft_ID			Integer,
 	Owner_PID				Integer,
 	Constraint Cargo_PK Primary Key(Cargo_ID),

@@ -21,18 +21,17 @@
       echo "Failed to connect to MySQL: " . mysqli_connect_error();
       }
 
-
+      // If user books a flight
     if ($_GET["job"] == "book"){
       $spacecraftid = $_GET['spacecraftid'];
       $starttime = $_GET['starttime'];
       $endtime = $_GET['endtime'];
 
+      // Update transports table
       $sql = "INSERT INTO Transports (Spacecraft_ID, Flight_Plan_Start_Time, Flight_Plan_End_Time, Client_PID)
                 Values ". "($spacecraftid, '$starttime', '$endtime', " . $_SESSION['userID'] . ")";
 
       $result = mysqli_query($con, $sql);
-
-    //  header("Location: client.php");
     }
 
     $pid = $_SESSION['userID'];
@@ -42,8 +41,6 @@
                               (SELECT * from Transports as t WHERE f.Spacecraft_ID = t.Spacecraft_ID
                                 and f.Start_Time = t.Flight_Plan_Start_Time and f.End_Time = t.Flight_Plan_End_Time
                                   and t.Client_PID = $pid)");
-
-
 
     echo "<table border='1'>
     <tr>
@@ -64,7 +61,6 @@
       echo "<td>" . $row['End_Time'] . "</td>";
       echo "<td>" . $row['Budget'] . "</td>";
       echo "<td>" . $row['Spacecraft_ID'] . "</td>";
-    //  echo "<td><a href='book.php?ID= " . $row['ID'] . "'>Book</a></td>";
       echo "<td><a onClick= \"return confirm('Do you want to book this flight?')\"
             href='viewflights.php?job=book&amp;spacecraftid=" . $row['Spacecraft_ID'] . "&starttime=" .
             $row['Start_Time'] . "&endtime=" . $row['End_Time'] . "'>Book</a></td>";
@@ -80,8 +76,6 @@
     header("Location: login.php");
 }
 ?>
-
-
 
 </body>
 </html>
