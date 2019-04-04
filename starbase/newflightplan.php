@@ -69,7 +69,7 @@ echo "</table>";
 }
 
 if($_GET["job"] == "fin") {
-	header("Location:assignflight.php?Start=$Name&End=$Name2");
+	
 	//set the 2 to a new flight plan
 	//calculate the distance between the 2 as well
 }

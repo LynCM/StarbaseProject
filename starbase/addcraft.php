@@ -1,13 +1,6 @@
 <html>
 <body>
-<?php
-   if($_GET["job"] == "submitted") {
-   $sql = 'INSERT INTO Spacecraft VALUES ($_POST["id"], $_POST["name"], $_POST["tonnage"], $_POST["maxocc"])';
-   $sql = 'INSERT INTO Spaceship VALUES ($_POST["id"], $_POST["model"], $_POST["role"], $_POST["blah"])';
-   header("Location:worldstate.php");
-   exit();
-}
-?>
+
 <p>Adding new ship data</p>
 <?php
 
@@ -21,7 +14,18 @@ if (mysqli_connect_errno($con))
   }
 
 print"Enter Entity Information";
+
+if($_GET["job"] == "submitted") {
+   $sql = 'INSERT INTO Spacecraft VALUES ($_POST["id"], $_POST["name"], $_POST["tonnage"], $_POST["maxocc"])';
+   $sql = 'INSERT INTO Spaceship VALUES ($_POST["id"], $_POST["model"], $_POST["role"], $_POST["blah"])';
+   header("Location:worldstate.php");
+   exit();
+}
+if($_GET["job"] == "station") {
+	
+}
 mysqli_close($con);
+
 ?>
 <form action="addloc.php?job=submitted" method="post">
    <input name="Name" type="hidden" value=<?php echo $row['Craft_ID'];?>>

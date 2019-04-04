@@ -20,7 +20,7 @@ if($_GET["job"] == "submitted") {
    print($_POST["x"]);
    mysqli_query($con,'INSERT INTO Location Values ('.$_POST["name"].','. $_POST["x"].','. $_POST["y"].','. $_POST["z"].')');
    mysqli_query($con,'INSERT INTO Celestial_Body Values ('.$_POST["name"].','. $_POST["radius"].','. $_POST["mass"].')');
-   //header("Location:viewloc.php?job=locations");
+   header("Location:viewloc.php?job=locations");
 }
 mysqli_close($con);
 ?>
