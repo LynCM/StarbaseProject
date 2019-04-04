@@ -23,6 +23,18 @@
     // Print welcome message
     echo "Welcome, " . $row['First_Name'] . "!\n";
 
+    // If user cancels their flight booking
+    if ($_GET["job"] == "cancel"){
+
+      $spacecraftid = $_GET['spacecraftid'];
+      $starttime = $_GET['starttime'];
+      $endtime = $_GET['endtime'];
+      $pid = $_SESSION['userID'];
+
+      $result = mysqli_query($con,"DELETE FROM Transports WHERE Spacecraft_ID = $spacecraftid and
+                Flight_Plan_Start_Time = '$starttime' and Flight_Plan_End_Time = '$endtime' and Client_PID = $pid");
+    }
+
     // Link to search for more flights
     echo '<div><br><button onclick="window.location.href = \'viewflights.php\';">Book Flights</button>';
 
@@ -53,9 +65,10 @@
         echo "<td>" . $row['End_Time'] . "</td>";
         echo "<td>" . $row['Budget'] . "</td>";
         echo "<td>" . $row['Spacecraft_ID'] . "</td>";
-        // TODO allow user to cancel booking
         echo "<td>" . $row['Seat_No'] . "</td>";
-        echo "<td><a onClick= \"return confirm('Do you want to cancel your booking?')\" href='client.php?job=delete&amp;ID= " . $row['ID'] . "'>Cancel</a></td>";
+        echo "<td><a onClick= \"return confirm('Do you want to cancel your booking?')\"
+              href='client.php?job=cancel&amp;spacecraftid= " . $row['Spacecraft_ID'] . "&starttime=" .
+              $row['Start_Time'] . "&endtime=" . $row['End_Time'] . "'>Cancel</a></td>";
 
         echo "</tr>";
         }
@@ -84,7 +97,7 @@
         echo "<td>" . $row['Description'] . "</td>";
         echo "<td>" . $row['Spacecraft_ID'] . "</td>";
         // TODO Make cargo removable??
-        echo "<td><a onClick= \"return confirm('Do you want to remove this cargo?')\" href='view.php?job=delete&amp;ID= " . $row['ID'] . "'>Cancel</a></td>";
+        echo "<td><a onClick= \"return confirm('Do you want to remove this cargo?')\" href='client.php?job=remove&amp;ID= " . $row['Cargo_ID'] . "'>Cancel</a></td>";
 
         echo "</tr>";
         }
