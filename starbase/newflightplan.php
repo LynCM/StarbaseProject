@@ -34,7 +34,7 @@ while($row = mysqli_fetch_array($result))
   echo "<td>" . $row['x'] . "</td>";
   echo "<td>" . $row['y'] . "</td>";
   echo "<td>" . $row['z'] . "</td>";
-  echo "<td><a href='newflightplan.php?job=end&amp;Name= ". $row['Name'] . "'>Start</a></td>";
+  echo "<td><a href='newflightplan.php?job=end&amp;Name=". $row['Name'] . "'>Start</a></td>";
   //echo "<td><a onClick= \"return confirm('Do you want to delete this user?')\" href='addloc.php?job=delete&amp;Name= " . $row['Name'] . "'>DELETE</a></td>";
 
   echo "</tr>";
@@ -42,10 +42,10 @@ while($row = mysqli_fetch_array($result))
 echo "</table>";
 }
 
-if($_GET["job"] == "end") {
+else if($_GET["job"] = "end") {
 print($name);
-$result = mysqli_query($con,"SELECT * FROM Location");
-
+$res2 = mysqli_query($con,"SELECT * FROM Location WHERE Name <> '$Name'");
+echo "SELECT * FROM Location WHERE Name <>".$Name;
 echo "<table border='1'>
 <tr>
 <th>Name</th>
@@ -54,14 +54,14 @@ echo "<table border='1'>
 <th>z</th>
 </tr>";
 
-while($row = mysqli_fetch_array($result))
+while($row = mysqli_fetch_array($res2))
   {
   echo "<tr>";
   echo "<td>" . $row['Name'] . "</td>";
   echo "<td>" . $row['x'] . "</td>";
   echo "<td>" . $row['y'] . "</td>";
   echo "<td>" . $row['z'] . "</td>";
-  echo "<td><a href='newflightplan.php?job=fin&amp;Name=".$Name."&amp;Name2=".$row[Name]."'>Start</a></td>";
+  echo "<td><a href='newflightplan.php?job=fin&amp;Name=".$Name."&amp;Name2=".$row[Name]."'>Destination</a></td>";
 
   echo "</tr>";
   }
@@ -69,9 +69,9 @@ echo "</table>";
 }
 
 if($_GET["job"] == "fin") {
+	mysqli_query($con,"INSERT INTO Flight_Plan );
+
 	
-	//set the 2 to a new flight plan
-	//calculate the distance between the 2 as well
 }
 mysqli_close($con);
 ?>
