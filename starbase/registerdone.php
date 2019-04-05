@@ -28,14 +28,12 @@ if (mysqli_connect_errno($con))
  if (!mysqli_query($con,$sql)) {
     die('Error: ' . mysqli_error($con));
 } else {
-  echo "SELECT PID from Person WHERE Username='$username'";
 
   $result = mysqli_query($con,"SELECT PID from Person WHERE Username='$username'");
   $row = mysqli_fetch_array($result);
 
   if ($type == 'Flight Crew') {
     $pid = $row['PID'];
-    echo "INSERT INTO Crew_Member Values ($pid, 'Crew', NULL)";
     mysqli_query($con, "INSERT INTO Crew_Member Values ($pid, 'Crew', NULL)");   // TODO Add role selection?
 
   } else if ($type == 'Ground Control') {
