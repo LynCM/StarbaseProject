@@ -45,7 +45,7 @@ while($row = mysqli_fetch_array($stationdata))
 echo "</table>";
 ?>
 
-<form action="addcraft.php?job=station" method="post">
+<form action="selectorbit.php" method="post">
   <input type="submit" value="New Space Station">
 </form>
 
@@ -70,7 +70,7 @@ while($row = mysqli_fetch_array($planetdata))
   echo "<td>" . $row['z'] . "</td>";
   echo "<td>" . $row[$param1] . "</td>";
   echo "<td>" . $row[$param2] . "</td>";
-  echo "<td><a href='addloc.php?job=edit&amp;Name= " . $row['Name'] . "'>Edit</a></td>";
+  echo "<td><a href='addloc.php?job=edit&amp;Name=" . $row['Name'] . "'>Edit</a></td>";
   //echo "<td><a onClick= \"return confirm('Do you want to delete this user?')\" href='addloc.php?job=delete&amp;Name= " . $row['Name'] . "'>DELETE</a></td>";
 
   echo "</tr>";

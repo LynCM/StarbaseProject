@@ -29,7 +29,6 @@ mysqli_close($con);
 ?>
 <form action="addloc.php?job=submitted" method="post">
    <input name="Name" type="hidden" value=<?php echo $row['Craft_ID'];?>>
-   Craft_ID: <input type="number" name="id" value='<?php echo $row['Craft_ID'];?>'><br>
    Name: <input type="text" name="name" value='<?php echo $row['Name'];?>'><br>
    Model: <input type="text" name="model" value='<?php echo $row['Model'];?>'><br>
    Role: <input type="text" name="role" value='<?php echo $row['Role'];?>'><br>

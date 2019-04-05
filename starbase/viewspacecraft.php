@@ -31,22 +31,16 @@ echo "<table border='1'><tr>
 <th>Docked</th></tr>";
 
 print("Spacecraft");
-while($row = mysqli_fetch_array($spacecrafts))
+while($row = mysqli_fetch_array($ships))
   {
   echo "<tr>";
   echo "<td>" . $row['Spacecraft_ID'] . "</td>";
   echo "<td>" . $row['Name'] . "</td>";
   echo "<td>" . $row['Tonnage'] . "</td>";
   echo "<td>" . $row['Max_Occupancy'] . "</td>";
-  while($row = mysqli_fetch_array($stations)) {
-	echo "<td>" . $row['Location_Name'] . "</td>";
-	echo "<td>" . $row['Orbits_Celestial_Body'] . "</td>";
-  }
-  while($row = mysqli_fetch_array($ships)) {
-	echo "<td>" . $row['Model'] . "</td>";
-	echo "<td>" . $row['Role'] . "</td>";
-	echo "<td>" . $row['Docked'] . "</td>";
-  }
+  echo "<td>" . $row['Model'] . "</td>";
+  echo "<td>" . $row['Role'] . "</td>";
+  echo "<td>" . $row['Docked'] . "</td>";
   //echo "<td><a href='addcraft.php?job=edit&amp;Name= " . $row['Name'] . "'>Edit</a></td>";
   //echo "<td><a onClick= \"return confirm('Do you want to delete this user?')\" href='addloc.php?job=delete&amp;Name= " . $row['Name'] . "'>DELETE</a></td>";
 

@@ -16,8 +16,18 @@ print"Select a start location";
 $Name = $_GET["Name"];
 $Name2= $_GET["Name2"];
 $Ship = $_GET["ShipID"];
+$Start = $_GET["StartTime"];
+$End = $_GET["EndTime"];
+$PID = $_GET["PID"];
+$Budget = $_GET["Budget"];
 
-if($_GET["job"] == "start") {
+if($_GET["job"] == "part1") {
+
+}
+if($_GET["job"] == "part2") {
+
+}
+if($_GET["job"] == "part3") {
 $result = mysqli_query($con,"SELECT * FROM Location");
 echo "<table border='1'>
 <tr>
@@ -69,7 +79,7 @@ echo "</table>";
 }
 
 if($_GET["job"] == "fin") {
-	mysqli_query($con,"INSERT INTO Flight_Plan );
+	mysqli_query($con,"INSERT INTO Flight_Plan VALUES ('$Ship','$StartTime','$EndTime','$Budget','$Name','$Name2')";
 
 	
 }
