@@ -167,7 +167,7 @@ Create Table If Not Exists Transports(
 INSERT INTO Person (First_Name, Last_Name, Username, Password, Type) Values
 ('Celina', 'Ma', 'LynCM', 'admin', 'Ground Control'),
 ('Super', 'User', 'Admin', 'admin', 'Ground Control'),
-('Captain', 'Holt', 'TheCaptain', 'admin', 'Crew'),
+('Captain', 'Holt', 'TheCaptain', 'admin', 'Flight Crew'),
 ('Some', 'User', 'someuser', 'admin', 'Client');
 
 

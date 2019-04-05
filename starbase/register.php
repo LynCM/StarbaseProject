@@ -22,7 +22,12 @@
    <label>Last name :</label>
    <input type = "text" name = "lname" id = "lname" />
    <br />
-     <br />
+   <br />
+
+   <label>Type: </label><br>
+   <input type = "radio" name = "type" value="Client">Client<br>
+   <input type = "radio" name = "type" value="Flight Crew">Flight Crew<br>
+   <input type = "radio" name = "type" value="Ground Control">Ground Control<br>
 
    <button type="submit" class="btn" name="regclient">Register</button>
    <br />
