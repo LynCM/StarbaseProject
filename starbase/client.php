@@ -100,7 +100,11 @@
         echo "<tr>";
         echo "<td>" . $row['Cargo_ID'] . "</td>";
         echo "<td>" . $row['Mass'] . "</td>";
-        echo "<td>" . $row['Is_Dangerous'] . "</td>";
+        if (!$row['Is_Dangerous']) {     // More readable output for IsDangerous flag
+          echo "<td>Yes</td>";
+        } else {
+          echo "<td>No</td>";
+        }
         echo "<td>" . $row['Description'] . "</td>";
         if ($row['Spacecraft_ID'] == NULL) {
           echo "<td>Not assigned</td>";
@@ -111,7 +115,7 @@
         echo "</tr>";
         }
     }
-    echo "</table></div>";
+    echo "</table></div><br><br>";
 
     mysqli_close($con);    // Close connection
 
@@ -121,6 +125,8 @@
   }
 
 ?>
+
+<button onclick="window.location.href = 'login.php';">Log out</button>
 
 </body>
 </html>

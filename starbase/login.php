@@ -65,7 +65,6 @@ if ( ! empty( $_POST ) ) {
 }
 ?>
 
-<br>
 <a href="register.php">Create a new account</a>
 
 </body>

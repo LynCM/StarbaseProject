@@ -31,6 +31,10 @@
       echo "Assigned to spacecraft: " . $spacecraftrow['Name'] . "<br><br>";
       echo "Role: " . $row['Role'] . "<br><br>";
 
+      // Link to cargo management page
+      echo "<form action='dockcargo.php' method='post'>
+                <button name='spacecraftid' value=$spacecraftid>Manage Ship Cargo</button> </form>";
+
       // Display ship's flight plans
       $sql = "SELECT * FROM Flight_Plan WHERE Spacecraft_ID=$spacecraftid";
 
@@ -54,7 +58,7 @@
           echo "</tr>";
           }
       }
-      echo "</table></div>";
+      echo "</table></div><br>";
       mysqli_close($con);    // Close connection
 
     } else {
@@ -64,7 +68,7 @@
 
   ?>
 
-  <br><br><div><a href="login.php">Log out</a></div>
+  <button onclick="window.location.href = 'login.php';">Log out</button>
 
 </body>
 </html>
