@@ -113,12 +113,12 @@
     }
     echo "</table></div>";
 
+    mysqli_close($con);    // Close connection
+
   } else {
     // Redirect to login page
     header("Location: login.php");
   }
-
-  mysqli_close($con);    // Close connection
 
 ?>
 
