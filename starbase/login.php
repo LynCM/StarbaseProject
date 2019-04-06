@@ -29,7 +29,6 @@ if ( ! empty( $_POST ) ) {
         $user = $_POST['username'];
         $result = mysqli_query($con,"SELECT * FROM Person WHERE Username = '$user'");
 
-      //    $sql = "INSERT INTO Person (First_Name, Last_Name, Type) VALUES ('". $fname."','". $lname ."', 'Client')";
         // If no user was found
         if (!$result) {
           echo "Invalid username\n";
@@ -49,7 +48,7 @@ if ( ! empty( $_POST ) ) {
               case 'Ground Control':
                 $redirect = 'groundcrew.php';
                 break;
-              case 'Crew':
+              case 'Flight Crew':
                 $redirect = 'flightcrew.php';
                 break;
             }
