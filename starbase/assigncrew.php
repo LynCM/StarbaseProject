@@ -16,61 +16,73 @@ if (mysqli_connect_errno($con))
   }
 
 if($_GET["job"] == "pickcrew") {
-$result = mysqli_query($con,"SELECT * FROM Crew_Member");
+
+// Select all crew members and their assigned spaceship
+$result = mysqli_query($con,"SELECT * FROM (Crew_Member JOIN Person ON Person.PID = Crew_Member.PID)
+                              JOIN Spacecraft AS s ON s.Spacecraft_ID = Crew_Member.Assigned_Spacecraft");
 
 echo "<table border='1'>
 <tr>
 <th>PID</th>
+<th>First Name</th>
+<th>Last Name</th>
 <th>Role</th>
-<th>Assigned_Spacecraft</th>
+<th>Assigned Spaceship</th>
 </tr>";
 
+// Display all crew members
 while($row = mysqli_fetch_array($result))
   {
   echo "<tr>";
   echo "<td>" . $row['PID'] . "</td>";
+  echo "<td>" . $row['First_Name'] . "</td>";
+  echo "<td>" . $row['Last_Name'] . "</td>";
   echo "<td>" . $row['Role'] . "</td>";
-  echo "<td>" . $row['Assigned_Spacecraft'] . "</td>";
-  echo "<td><a href='assigncrew.php?PID= " . $row['PID'] . "'>Select</a></td>";
+  echo "<td>" . $row['Name'] . "</td>";       // Print assigned spaceship name
+  echo "<td><a href='assigncrew.php?PID=" . $row['PID'] . "'>Select</a></td>";
   echo "</tr>";
   }
 echo "</table>";
-
 }
+
+// Assign a spacecraft to chosen crew member
 if($_GET[PID] != NULL) {
-$result = mysqli_query($con,"SELECT * FROM Spacecraft");
+$result = mysqli_query($con,"SELECT * FROM (Spacecraft as c JOIN Spaceship as s ON c.Spacecraft_ID = s.Spacecraft_ID)");
+$pid = $_GET[PID];
 
 echo "<table border='1'>
 <tr>
 <th>Name</th>
 </tr>";
 
-while($row = mysqli_fetch_array($result))
+while($row = mysqli_fetch_array($result))        // Display all spacecraft
   {
   echo "<tr>";
   echo "<td>" . $row['Name'] . "</td>";
-  echo "<td><a href='assigncrew.php?Name= " . $row['Name'] . "'>Assign</a></td>";
+  echo "<td><a href='assigncrew.php?craftid=" . $row['Spacecraft_ID'] ."&PID=$pid'>Assign</a></td>";
   echo "</tr>";
   }
 echo "</table>";
 }
-if($_GET["Name"] != NULL) {
-   print"Flight Crew has been assigned to Spacecraft ".$name;
-   $PID = $_GET[PID];
-   $Craft_ID = $_GET[Craft_ID];
-   $result = mysqli_query($con,"update Crew_Member set assigned_spacecraft=".$craft_id."where PID=".$PID);
+
+if($_GET["craftid"] != NULL) {
+//   print"Flight Crew has been assigned to Spacecraft ".$name;
+   $PID = $_GET['PID'];
+   $craftid = $_GET['craftid'];
+
+   $result = mysqli_query($con,"update Crew_Member set Assigned_Spacecraft=$craftid where PID= $PID");
    //update number of people in the ship??
-   
+
+   // Return to crew member selection page
+   header("Location: assigncrew.php?job=pickcrew");
    }
 
 mysqli_close($con);
-?> 
+?>
 
 <form action="groundcrew.php" method="post">
    <input type="submit" value="Done">
 </form>
-
-
 
 
 </body>
