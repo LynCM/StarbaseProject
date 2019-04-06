@@ -25,10 +25,18 @@
 
       $spacecraftid = $row['Assigned_Spacecraft'];
       $result = mysqli_query($con, "SELECT * FROM Spacecraft WHERE Spacecraft_ID=$spacecraftid");
-      $spacecraftrow = mysqli_fetch_array($result);
+
+      // Show crew member's assigned ship
+      $spacecraftname;
+      if (!$result) {
+        $spacecraftname = "None";
+      } else {
+        $spacecraftrow = mysqli_fetch_array($result);
+        $spacecraftname = $spacecraftrow['Name'];
+      }
 
       // Display spaceship assignment and role
-      echo "Assigned to spacecraft: " . $spacecraftrow['Name'] . "<br><br>";
+      echo "Assigned to spacecraft: $spacecraftname<br><br>";
       echo "Role: " . $row['Role'] . "<br><br>";
 
       // Link to cargo management page
