@@ -52,6 +52,7 @@
     $sql = "SELECT * from (Flight_Plan as F JOIN Transports as T ON(f.Spacecraft_ID = t.Spacecraft_ID
       and f.Start_Time = t.Flight_Plan_Start_Time and f.End_Time = t.Flight_Plan_End_Time)) WHERE Client_PID = $pid";
 
+
     // TODO: Adjust to display spacecraft name instead of ID (more user friendly), units for price and more readable time format?
     echo "<div><table border='1'>
     <tr>

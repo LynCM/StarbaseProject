@@ -47,7 +47,7 @@ echo "</table>";
 
 // Assign a spacecraft to chosen crew member
 if($_GET[PID] != NULL) {
-$result = mysqli_query($con,"SELECT * FROM (Spacecraft as c JOIN Spaceship as s ON c.Spacecraft_ID = s.Spacecraft_ID)");
+$result = mysqli_query($con,"SELECT * FROM (Spacecraft NATURAL JOIN Spaceship)");
 $pid = $_GET[PID];
 
 echo "<table border='1'>

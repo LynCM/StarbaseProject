@@ -17,7 +17,7 @@
       }
 
       // Get user info
-      $result = mysqli_query($con,"SELECT * FROM (Crew_Member as c NATURAL JOIN Person AS p) WHERE PID = " . $_SESSION['userID']);
+      $result = mysqli_query($con,"SELECT * FROM (Crew_Member NATURAL JOIN Person) WHERE PID = " . $_SESSION['userID']);
       $row = mysqli_fetch_array($result);
 
       // Print welcome message

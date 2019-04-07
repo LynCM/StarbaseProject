@@ -190,6 +190,10 @@ INSERT INTO Location Values
 ('Earth', 50, 50, 50),
 ('Mars', 80, 80, 80);
 
+INSERT INTO Celestial_Body Values
+('Earth', 6371, 6000),
+('Mars', 3389,6000);
+
 INSERT INTO Flight_Plan Values
 (1, '2019-04-15 15-00-00', '2019-04-18 18-00-00', 5000, 'Earth', 'Mars'),
 (2, '2019-04-15 15-00-00', '2019-04-18 18-00-00', 5000, 'Mars', 'Earth');
@@ -200,8 +204,6 @@ INSERT INTO Transports (Spacecraft_ID, Flight_Plan_Start_Time, Flight_Plan_End_T
 #
 # Dumping data for table users
 #
-
-/* not sure what this part was for yet in the original file */
 
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
