@@ -16,12 +16,12 @@ Flight Crew
 	
 Select p.PID, p.First_Name, p.Last_Name, p.Type, p.Username, c.Role, c.Assigned_Spaceship #Spaceship or spacecraft? Should be ship, rename databse
 From Person as p Natural Join Crew_Member as c
-Where p.Type = 'Flight Crew'
+Where p.Type = 'Flight Crew';
 
 	View Spaceship:
 	
 Select *
-From Spacecraft Natural Join Spaceship
+From Spacecraft Natural Join Spaceship;
 
 	Assign to Spaceship:
 
