@@ -1,4 +1,7 @@
 <html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
 <body>
 
 <p>Adding new ship data</p>
@@ -22,7 +25,7 @@ if($_GET["job"] == "submitted") {
    exit();
 }
 if($_GET["job"] == "station") {
-	
+
 }
 mysqli_close($con);
 

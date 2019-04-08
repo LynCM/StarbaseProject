@@ -1,7 +1,10 @@
-<html>
+<html
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
 <body>
 
-  <p>Crew page</p>
+  <h1>Crew page</h1>
 
   <?php
     session_start();

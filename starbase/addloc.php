@@ -1,4 +1,7 @@
 <html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
 <body>
 
 <p>Adding new data</p>
@@ -32,7 +35,7 @@ mysqli_close($con);
    <input name="name" type="hidden" value=<?php echo $row['Name'];?>>
    Name: <input type="text" name="name" value='<?php echo $row['Name'];?>'><br>
    Radius: <input type="number" name="radius" value='<?php echo $row['Radius'];?>'><br>
-   Mass: <input type="number" name="mass" value='<?php echo $row['Mass'];?>'><br>   
+   Mass: <input type="number" name="mass" value='<?php echo $row['Mass'];?>'><br>
    <p>Cords</p>
    x: <input type="number" name="x" value='<?php echo $row['x'];?>'><br>
    y: <input type="number" name="y" value='<?php echo $row['y'];?>'><br>

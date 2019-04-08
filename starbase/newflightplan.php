@@ -1,7 +1,16 @@
 <html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
 <body>
 
 <?php
+
+session_start();
+
+// Check user session
+if ( isset( $_SESSION['userID'] ) ) {
 
 // Create connection
 $con=mysqli_connect("localhost","root","pancakes","starbase");
@@ -127,10 +136,19 @@ if($_GET["job"] == "insert") {
   $Budget = $_POST['Budget'];
 
   mysqli_query($con,"INSERT INTO Flight_Plan VALUES ($Ship,'$StartTime','$EndTime',$Budget,'$Start','$End')");
+  // Note the ground control user who planned this flight
+  $pid = $_SESSION['userID'];
+  mysqli_query($con, "INSERT INTO Planned_By VALUES ($Ship, '$StartTime','$EndTime', $pid)");
+
   echo "Flight successfully added.";
 }
 
 mysqli_close($con);
+
+} else {
+  // Redirect to login page
+  header("Location: login.php");
+}
 ?>
 
 <form action="groundcrew.php" method="post">

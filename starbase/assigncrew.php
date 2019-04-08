@@ -1,4 +1,7 @@
 <html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
 <body>
 
 <p>Assigning Crew to Ships</p>
@@ -21,7 +24,7 @@ if($_GET["job"] == "pickcrew") {
 $result = mysqli_query($con,"SELECT * FROM (Crew_Member JOIN Person ON Person.PID = Crew_Member.PID)
                               JOIN Spacecraft AS s ON s.Spacecraft_ID = Crew_Member.Assigned_Spacecraft");
 
-echo "<table border='1'>
+echo "<table class='center' border='1'>
 <tr>
 <th>PID</th>
 <th>First Name</th>

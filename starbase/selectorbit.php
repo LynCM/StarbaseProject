@@ -1,4 +1,8 @@
 <html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
 <body>
 
 <p>Adding new space station</p>
@@ -36,7 +40,7 @@ while($row = mysqli_fetch_array($planetdata))
 
   echo "</tr>";
   }
-echo "</table>";	
+echo "</table>";
 
 
-?> 
+?>

@@ -1,15 +1,16 @@
 
 
-body {
+html, body {
     margin:auto;
     text-align:center;
     align:center;
+    width: 100%;
     font-family: verdana;
     color: white;
     font-size: 15px;
 
-    background: rgb(172,170,205);
-    background: linear-gradient(90deg, rgba(172,170,205,1) 0%, rgba(144,157,201,1) 47%, rgba(13,19,106,1) 92%);
+    background: rgb(146,142,204);
+    background: linear-gradient(90deg, rgba(146,142,204,1) 0%, rgba(144,157,201,1) 8%, rgba(8,12,59,1) 97%);
 }
 
 form {
@@ -32,11 +33,34 @@ input[type=radio] {
 input[type=submit] {
     color: black;
     padding:5px 15px;
-    background:#ccc;
+    background:#99bbff;
     border:0 none;
     cursor:pointer;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+}
+
+div {
+  margin: auto;
+  text-align: center;
+}
+
+div.center {
+    text-align: center;
+}
+
+div.center table {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+table {
+    text-align:center;
+    max-width: 850px;
+    border:1px solid #999;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 h1 {
@@ -51,7 +75,6 @@ label {
   margin:auto;
   display: block;
   font-family: verdana;
-
   font-size: 20px;
 }
 
@@ -59,8 +82,12 @@ p {
   max-width:100%;
   margin:auto;
   display: block;
-  text_align: center;
+  text-align: center;
   font-family: verdana;
   color: white;
   font-size: 15px;
+}
+
+a {
+  color: white;
 }
