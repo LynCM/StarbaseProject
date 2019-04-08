@@ -41,7 +41,7 @@ if ( !isset( $_SESSION['userID'] ) ) {
   // Display flights this ground crew member is currently planning
   echo '<div><br><p>Your Planned Flights</p></div>';
 
-  $pid = $row['PID'];
+  $pid = $_SESSION['userID'];
   $sql = "SELECT * from (Flight_Plan as f JOIN Planned_By as p ON (f.Spacecraft_ID = p.Spacecraft_ID
     and f.Start_Time = p.Flight_Plan_Start_Time and f.End_Time = p.Flight_Plan_End_Time)) WHERE Ground_Control_PID = $pid";
 
