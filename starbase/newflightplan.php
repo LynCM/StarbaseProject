@@ -12,7 +12,6 @@ if (mysqli_connect_errno($con))
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
 
-print"Select a start location";
 $Name = $_GET["Name"];
 $Name2= $_GET["Name2"];
 $Ship = $_GET["ShipID"];
@@ -21,16 +20,11 @@ $End = $_GET["EndTime"];
 $PID = $_GET["PID"];
 $Budget = $_GET["Budget"];
 
-if($_GET["job"] == "part1") {
-
-}
-if($_GET["job"] == "part2") {
-
-}
-if($_GET["job"] == "part3") {
+if($_GET["job"] == "start") {
 $result = mysqli_query($con,"SELECT * FROM Location");
-echo "<form action='newflightplan.php' method='post'><form>
+echo
 
+"<p>Select a start location</p>
 <table border='1'>
 <tr>
 <th>Name</th>
@@ -42,12 +36,13 @@ echo "<form action='newflightplan.php' method='post'><form>
 while($row = mysqli_fetch_array($result))
   {
   echo "<tr>";
+  $name = $row['Name'];
   echo "<td>" . $row['Name'] . "</td>";
   echo "<td>" . $row['x'] . "</td>";
   echo "<td>" . $row['y'] . "</td>";
   echo "<td>" . $row['z'] . "</td>";
-//  echo "<td><a href='newflightplan.php?job=end&amp;Name=". $row['Name'] . "'>Start</a></td>";
-  echo "<td><"
+  echo "<td><a href='newflightplan.php?job=end&amp;Name=". $row['Name'] . "'>Start</a></td>";
+//  echo "<td><input type='radio' name='start' value=$name"
 
   //echo "<td><a onClick= \"return confirm('Do you want to delete this user?')\" href='addloc.php?job=delete&amp;Name= " . $row['Name'] . "'>DELETE</a></td>";
 
@@ -56,11 +51,14 @@ while($row = mysqli_fetch_array($result))
 echo "</table>";
 }
 
-else if($_GET["job"] = "end") {
-print($name);
+else if($_GET['job'] == "end") {
+  $Name = $_GET['Name'];
+
 $res2 = mysqli_query($con,"SELECT * FROM Location WHERE Name <> '$Name'");
-echo "SELECT * FROM Location WHERE Name <>".$Name;
-echo "<table border='1'>
+//echo "SELECT * FROM Location WHERE Name <>".$Name;
+echo "
+<p>Select a destination</p>
+<table border='1'>
 <tr>
 <th>Name</th>
 <th>x</th>
@@ -83,15 +81,60 @@ echo "</table>";
 }
 
 if($_GET["job"] == "fin") {
-	mysqli_query($con,"INSERT INTO Flight_Plan VALUES ('$Ship','$StartTime','$EndTime','$Budget','$Name','$Name2')");
+  $Start = $_GET['Name'];
+  $End = $_GET['Name2'];
 
+  echo "Start: $Start<br> Destination: $End<br>
+
+  <form action='newflightplan.php?job=insert' method='post'>
+  <label>Spaceship: </label>";
+
+  $ships = mysqli_query($con,"SELECT Name, Spacecraft_ID FROM (Spaceship NATURAL JOIN Spacecraft)");
+
+  echo "<select name='Ship'>";
+  while($row = mysqli_fetch_array($ships)) {
+    echo "<option value =" . $row['Spacecraft_ID'] . ">" . $row['Name'] . "</option>";
+    echo $row['Spacecraft_ID'];
+  }
+
+  echo "</select>
+  <br><br>
+  <label>Start Time: </label><input type = 'text' name = 'StartTime'/>
+
+  <input type='hidden' name='Start' value = $Start>
+  <input type='hidden' name='End' value = $End>
+
+  <br>
+  <br>
+  <label>End Time: </label><input type = 'text' name = 'EndTime'/>
+
+  <br>
+  <br>
+  <label>Budget: </label><input type = 'text' name = 'Budget'/><br><br>
+
+  <button type='submit' class='btn' name='addflight'>Add Flight</button>
+
+  </form>";
 
 }
+
+if($_GET["job"] == "insert") {
+  $Start = $_POST['Start'];
+  $End = $_POST['End'];
+  $Ship = $_POST['Ship'];
+  $StartTime = $_POST['StartTime'];
+  $EndTime = $_POST['EndTime'];
+  $Budget = $_POST['Budget'];
+
+  mysqli_query($con,"INSERT INTO Flight_Plan VALUES ($Ship,'$StartTime','$EndTime',$Budget,'$Start','$End')");
+  echo "Flight successfully added.";
+}
+
 mysqli_close($con);
 ?>
 
 <form action="groundcrew.php" method="post">
-   <input type="submit" value="Cancel">
+   <input type="submit" value="Exit">
 </form>
 
 
