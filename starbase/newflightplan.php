@@ -29,7 +29,9 @@ if($_GET["job"] == "part2") {
 }
 if($_GET["job"] == "part3") {
 $result = mysqli_query($con,"SELECT * FROM Location");
-echo "<table border='1'>
+echo "<form action='newflightplan.php' method='post'><form>
+
+<table border='1'>
 <tr>
 <th>Name</th>
 <th>x</th>
@@ -44,7 +46,9 @@ while($row = mysqli_fetch_array($result))
   echo "<td>" . $row['x'] . "</td>";
   echo "<td>" . $row['y'] . "</td>";
   echo "<td>" . $row['z'] . "</td>";
-  echo "<td><a href='newflightplan.php?job=end&amp;Name=". $row['Name'] . "'>Start</a></td>";
+//  echo "<td><a href='newflightplan.php?job=end&amp;Name=". $row['Name'] . "'>Start</a></td>";
+  echo "<td><"
+
   //echo "<td><a onClick= \"return confirm('Do you want to delete this user?')\" href='addloc.php?job=delete&amp;Name= " . $row['Name'] . "'>DELETE</a></td>";
 
   echo "</tr>";
@@ -79,9 +83,9 @@ echo "</table>";
 }
 
 if($_GET["job"] == "fin") {
-	mysqli_query($con,"INSERT INTO Flight_Plan VALUES ('$Ship','$StartTime','$EndTime','$Budget','$Name','$Name2')";
+	mysqli_query($con,"INSERT INTO Flight_Plan VALUES ('$Ship','$StartTime','$EndTime','$Budget','$Name','$Name2')");
 
-	
+
 }
 mysqli_close($con);
 ?>

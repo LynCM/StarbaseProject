@@ -1,13 +1,19 @@
 <!-- Referenced for constructing login system: https://www.johnmorrisonline.com/build-php-login-form-using-sessions/ -->
 
 <html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
 <body>
 
-<p><b>Starbase</b></p>
+<h1><b>STARBASE</b></h1>
 
 <form action="" method="post">
-   Username: <input type="text" name="username"><br>
-   Password: <input type="password" name="password"><br>
+   <label>Username:</label>
+   <input type="text" name="username"><br>
+   <label>Password:</label>
+   <input type="password" name="password"><br>
    <input type="submit" value="Sign in">
 </form>
 <br>
@@ -65,6 +71,5 @@ if ( ! empty( $_POST ) ) {
 ?>
 
 <a href="register.php">Create a new account</a>
-
 </body>
 </html>

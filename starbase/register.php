@@ -1,6 +1,10 @@
 <html>
 <body>
 
+  <head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+
   <p><b>Create a new account</b></p>
 
 <form action = "registerdone.php" method = "post">

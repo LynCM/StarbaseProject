@@ -53,6 +53,8 @@ echo "</table>";
   <input type="submit" value="New Spacecraft">
 </form>
 
+  <button onclick="window.location.href = 'groundcrew.php';">Return</button>
+
 
 </body>
 </html>

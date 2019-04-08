@@ -1,0 +1,66 @@
+
+
+body {
+    margin:auto;
+    text-align:center;
+    align:center;
+    font-family: verdana;
+    color: white;
+    font-size: 15px;
+
+    background: rgb(172,170,205);
+    background: linear-gradient(90deg, rgba(172,170,205,1) 0%, rgba(144,157,201,1) 47%, rgba(13,19,106,1) 92%);
+}
+
+form {
+  text-align: center;
+}
+
+input {
+  margin:auto;
+  display: block;
+  text-align: left;
+  font-family: verdana;
+  color: black;
+  font-size: 15px;
+}
+
+input[type=radio] {
+  display: inline;
+}
+
+input[type=submit] {
+    color: black;
+    padding:5px 15px;
+    background:#ccc;
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+h1 {
+  color: white;
+  font-family:"Arial Black", Gadget, sans-serif;
+  font-size: 20px;
+  text-align: center;
+}
+
+label {
+  max-width:100%;
+  margin:auto;
+  display: block;
+  font-family: verdana;
+
+  font-size: 20px;
+}
+
+p {
+  max-width:100%;
+  margin:auto;
+  display: block;
+  text_align: center;
+  font-family: verdana;
+  color: white;
+  font-size: 15px;
+}

@@ -84,6 +84,8 @@ mysqli_close($con);
   <input type="submit" value="New Celestial Body">
 </form>
 
+<button onclick="window.location.href = 'groundcrew.php';">Return</button>
+
 
 </body>
 </html>

@@ -22,7 +22,7 @@
 </form>
 
 <form action="newflightplan.php?job=start" method="post">
-   <input type="submit" value="View Flights">
+   <input type="submit" value="Add New Flight">
 </form>
 
 <form action="viewspacecraft.php?job=locations" method="post">
