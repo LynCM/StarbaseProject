@@ -72,7 +72,7 @@ Create Table If Not Exists Cargo(
 	Cargo_ID				Integer AUTO_INCREMENT,
 	Mass					Integer,
 	Is_Dangerous			Boolean,
-	Description				Varchar(30),
+	Description				Varchar(300),
 	Spacecraft_ID			Integer,
 	Owner_PID				Integer,
 	Constraint Cargo_PK Primary Key(Cargo_ID),
@@ -163,42 +163,85 @@ Create Table If Not Exists Transports(
 #
 # Initial data population
 #
+INSERT INTO Spacecraft (Name, Tonnage, Max_Occupancy) Values
+('Diamond Star Yacht', 1000, 5),
+('Mars Direct 1', 2000, 80),
+('Mars Direct 2', 2000, 80),
+('Freedom Venture', 10000, 250),
+('International Transport Station', 10000, 1000),
+('Mars Transport Station', 10000, 1000);
 
 INSERT INTO Person (First_Name, Last_Name, Username, Password, Type) Values
 ('Celina', 'Ma', 'LynCM', 'admin', 'Ground Control'),
-('Super', 'User', 'Admin', 'admin', 'Ground Control'),
-('Captain', 'Holt', 'TheCaptain', 'admin', 'Flight Crew'),
-('Some', 'User', 'someuser', 'admin', 'Client');
+('Sysadmin', 'Sysadmin', 'Admin', 'admin', 'Ground Control'),
+('Grant', 'Holt', 'TheCaptain', 'BestCapt', 'Flight Crew'),
+('Darby', 'Woltz', 'GammaMan', 'alphaBetaGamma', 'Client');
 
+INSERT INTO Location (Name, x, y, z) Values
+('Earth', 50, 50, 50),
+('Mars', 80, 80, 80),
+('Venus', 30, 30, 30),
+('Mercury', 10, 10, 10);
 
-INSERT INTO Spacecraft (Name, Tonnage, Max_Occupancy) Values
-('ImAShip', 1000, 50),
-('AlsoAShip', 2000, 80);
+INSERT INTO Manufacturers (Spacecraft_ID, Manufacturer_Name) Values
+(1, 'Tianzi Aeronautics'),
+(2, 'Starcraft'),
+(3, 'Starcraft'),
+(4, 'Freedom Industries');
 
-INSERT INTO Spaceship Values
-(1, 'SomeModel', 'Touring', NULL),
-(2, 'AnotherModel', 'Touring', NULL);
+Insert Into Module (Spacecraft_ID, Module_ID) Values
+(1,'Alcohol Dispensor'),
+(1,'Cable TV Receiver'),
+(3,'Vehicle Transport Module'),
+(4,'Atmospheric Shuttle Hangar');
 
-INSERT INTO Crew_Member Values
+INSERT INTO Celestial_Body (Location_Name, Radius, Mass) Values
+('Earth', 6371, 60000),
+('Mars', 3389,6000),
+('Venus', 6300, 60000),
+('Mercury', 2300, 5000);
+
+INSERT INTO Space_Station (Location_Name, Spacecraft_ID, Orbits_Celestial_Body) Values
+('International Transport Station', 5, 'Earth'),
+('Mars Transport Station', 6, 'Mars');
+
+INSERT INTO Spaceship (Spacecraft_ID, Model, Role, Station_Docked_At) Values
+(1, 'Diamond Series', 'Touring', NULL),
+(2, 'Economy Series', 'Touring', NULL),
+(3, 'Economy Series', 'Touring',  'International Transport Station'),
+(4, 'Starfalcon Series', 'Mass Touring', 'Mars Transport Station');
+
+Insert Into Cargo (Mass, Is_Dangerous, Description, Spacecraft_ID, Owner_PID) Values
+(10, True, 'Box of alcohol', 3, 4)
+(20, False, 'Box of gold',3 , 4)
+(30, True, 'Box of dynamite', 3, 4)
+(40, False, 'Jug of milk', 3, 4);
+
+INSERT INTO Crew_Member (PID, Role, Assigned_Spacecraft) Values
 (3, 'Captain', 1);
 
-INSERT INTO Manufacturers Values
-(1, 'MakeCraft'),
-(2, 'StarParts');
+Insert Into Contact_Number (PID, Contact_Number) Values
+(3, 14032249912),
+(3, 14032251123),
+(4, 14033339621),
+(4, 14033389921);
 
-INSERT INTO Location Values
-('Earth', 50, 50, 50),
-('Mars', 80, 80, 80);
-
-INSERT INTO Celestial_Body Values
-('Earth', 6371, 6000),
-('Mars', 3389,6000);
-
-INSERT INTO Flight_Plan Values
+INSERT INTO Flight_Plan (Spacecraft_ID, Start_Time, End_Time, Budget, Start_Location, Destination) Values
 (1, '2019-04-15 15-00-00', '2019-04-18 18-00-00', 5000, 'Earth', 'Mars'),
 (2, '2019-04-15 15-00-00', '2019-04-18 18-00-00', 5000, 'Mars', 'Earth');
 
-INSERT INTO Transports (Spacecraft_ID, Flight_Plan_Start_Time, Flight_Plan_End_Time, Client_PID) Values (1, '2019-04-15 15:00:00', '2019-04-18 18:00:00',4);
+Insert Into Guided_By (Spacecraft_ID, Ground_Control_PID) Values
+(1, 1),
+(2, 2),
+(3, 1),
+(4, 2);
+
+Insert Into Planned_By (Spacecraft_ID, Flight_Plan_Start_Time, Flight_Plan_End_Time, Ground_Control_PID) Values
+(1, '2019-04-15 15-00-00', '2019-04-18 18-00-00', 1),
+(2, '2019-04-15 15-00-00', '2019-04-18 18-00-00', 1);
+
+INSERT INTO Transports (Spacecraft_ID, Flight_Plan_Start_Time, Flight_Plan_End_Time, Client_PID) Values 
+(1, '2019-04-15 15:00:00', '2019-04-18 18:00:00',4);
 
 
 #
