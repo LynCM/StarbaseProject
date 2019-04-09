@@ -91,8 +91,9 @@ Create Table If Not Exists Crew_Member(
 );
 Create Table If Not Exists Contact_Number(
 	PID						Integer,
-	Contact_Number			Integer,
+	Contact_Number			BigInt,
 	Constraint Contact_Number_PK Primary Key(PID, Contact_Number),
+	Unique(PID, Contact_Number),
 	Constraint Contact_Number_FK Foreign Key(PID) References Person(PID)
 );
 Create Table If Not Exists Flight_Plan(
@@ -181,7 +182,9 @@ INSERT INTO Location (Name, x, y, z) Values
 ('Earth', 50, 50, 50),
 ('Mars', 80, 80, 80),
 ('Venus', 30, 30, 30),
-('Mercury', 10, 10, 10);
+('Mercury', 10, 10, 10),
+('International Transport Station', 50, 50, 50),
+('Mars Transport Station', 80, 80, 80);
 
 INSERT INTO Manufacturers (Spacecraft_ID, Manufacturer_Name) Values
 (1, 'Tianzi Aeronautics'),
@@ -212,9 +215,9 @@ INSERT INTO Spaceship (Spacecraft_ID, Model, Role, Station_Docked_At) Values
 (4, 'Starfalcon Series', 'Mass Touring', 'Mars Transport Station');
 
 Insert Into Cargo (Mass, Is_Dangerous, Description, Spacecraft_ID, Owner_PID) Values
-(10, True, 'Box of alcohol', 3, 4)
-(20, False, 'Box of gold',3 , 4)
-(30, True, 'Box of dynamite', 3, 4)
+(10, True, 'Box of alcohol', 3, 4),
+(20, False, 'Box of gold',3 , 4),
+(30, True, 'Box of dynamite', 3, 4),
 (40, False, 'Jug of milk', 3, 4);
 
 INSERT INTO Crew_Member (PID, Role, Assigned_Spacecraft) Values
