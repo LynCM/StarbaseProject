@@ -14,7 +14,7 @@
   <br />
 
   <label>Password :</label>
-  <input type = "text" name = "password" id = "password" />
+  <input type = "password" name = "password" id = "password" />
   <br />
     <br />
 
@@ -31,11 +31,13 @@
    <label>Type: </label><br>
    <input type = "radio" name = "type" value="Client">Client<br>
    <input type = "radio" name = "type" value="Flight Crew">Flight Crew<br>
-   <input type = "radio" name = "type" value="Ground Control">Ground Control<br>
+   <input type = "radio" name = "type" value="Ground Control">Ground Control<br><br>
 
    <button type="submit" class="btn" name="regclient">Register</button>
    <br />
 </form>
+
+<button onclick="window.location.href = 'login.php';">Cancel</button>
 
 </body>
 </html>
