@@ -36,7 +36,7 @@ mysqli_close($con);
    Name: <input type="text" name="name" value='<?php echo $row['Name'];?>'><br>
    Radius: <input type="number" name="radius" value='<?php echo $row['Radius'];?>'><br>
    Mass: <input type="number" name="mass" value='<?php echo $row['Mass'];?>'><br>
-   <p>Cords</p>
+   <p>Coordinates</p>
    x: <input type="number" name="x" value='<?php echo $row['x'];?>'><br>
    y: <input type="number" name="y" value='<?php echo $row['y'];?>'><br>
    z: <input type="number" name="z" value='<?php echo $row['z'];?>'><br>

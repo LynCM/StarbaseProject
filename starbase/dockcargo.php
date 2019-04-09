@@ -52,7 +52,7 @@
       echo "<tr>";
       echo "<td>" . $row['Cargo_ID'] . "</td>";
       echo "<td>" . $row['Mass'] . "</td>";
-      if (!$row['Is_Dangerous']) {     // More readable output for IsDangerous flag
+      if ($row['Is_Dangerous']) {     // More readable output for IsDangerous flag
         echo "<td>Yes</td>";
       } else {
         echo "<td>No</td>";
@@ -86,7 +86,7 @@
       echo "<tr>";
       echo "<td>" . $row['Cargo_ID'] . "</td>";
       echo "<td>" . $row['Mass'] . "</td>";
-      if (!$row['Is_Dangerous']) {     // More readable output for IsDangerous flag
+      if ($row['Is_Dangerous']) {     // More readable output for IsDangerous flag
         echo "<td>Yes</td>";
       } else {
         echo "<td>No</td>";

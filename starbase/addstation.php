@@ -48,7 +48,7 @@ if($_GET["job"] == "submitted") {
    Name: <input type="text" name="name" value='<?php echo $row['Name'];?>'><br>
    Tonnage: <input type="number" name="tonnage" value='<?php echo $row['Tonnage'];?>'><br>
    MaxOccupancy: <input type="number" name="maxocc" value='<?php echo $row['MaxOccupancy'];?>'><br>
-   <p>Cords</p>
+   <p>Coordinates</p>
    x: <input type="number" name="x" value='<?php echo $row['x'];?>'><br>
    y: <input type="number" name="y" value='<?php echo $row['y'];?>'><br>
    z: <input type="number" name="z" value='<?php echo $row['z'];?>'><br>

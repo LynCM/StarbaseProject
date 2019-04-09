@@ -22,8 +22,8 @@ if (mysqli_connect_errno($con))
 //mysqli_query($con,"INSERT INTO Celestial_Body VALUES ('Earth', 40, 40)");
 
 $stationdata = mysqli_query($con,"SELECT * FROM Location,Space_Station WHERE Name = Location_Name");
-$param1 = "Craft_ID";
-$param2 = "Oribits";
+$param1 = "Spacecraft_ID";
+$param2 = "Orbits";
 echo "<table border='1'><tr>
 <th>Name</th>
 <th>x</th>
@@ -40,7 +40,11 @@ while($row = mysqli_fetch_array($stationdata))
   echo "<td>" . $row['y'] . "</td>";
   echo "<td>" . $row['z'] . "</td>";
   echo "<td>" . $row[$param1] . "</td>";
-  echo "<td>" . $row[$param2] . "</td>";
+  if (!$row[$param2]) {
+    echo "<td>None</td>";
+  } else {
+    echo "<td>" . $row[$param2] . "</td>";         // Echoing optional celestial body being orbited
+  }
   echo "<td><a href='addloc.php?job=edit&amp;Name= " . $row['Name'] . "'>Edit</a></td>";
   //echo "<td><a onClick= \"return confirm('Do you want to delete this user?')\" href='addloc.php?job=delete&amp;Name= " . $row['Name'] . "'>DELETE</a></td>";
 

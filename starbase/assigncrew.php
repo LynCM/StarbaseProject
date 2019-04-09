@@ -22,7 +22,7 @@ if($_GET["job"] == "pickcrew") {
 
 // Select all crew members and their assigned spaceship
 $result = mysqli_query($con,"SELECT * FROM (Crew_Member JOIN Person ON Person.PID = Crew_Member.PID)
-                              JOIN Spacecraft AS s ON s.Spacecraft_ID = Crew_Member.Assigned_Spacecraft");
+                              LEFT OUTER JOIN Spacecraft AS s ON s.Spacecraft_ID = Crew_Member.Assigned_Spacecraft");
 
 echo "<table class='center' border='1'>
 <tr>
@@ -41,7 +41,11 @@ while($row = mysqli_fetch_array($result))
   echo "<td>" . $row['First_Name'] . "</td>";
   echo "<td>" . $row['Last_Name'] . "</td>";
   echo "<td>" . $row['Role'] . "</td>";
-  echo "<td>" . $row['Name'] . "</td>";       // Print assigned spaceship name
+  if (!$row['Name']) {
+    echo "<td>None</td>";
+  } else {
+    echo "<td>" . $row['Name'] . "</td>";       // Print assigned spaceship name
+  }
   echo "<td><a href='assigncrew.php?PID=" . $row['PID'] . "'>Select</a></td>";
   echo "</tr>";
   }

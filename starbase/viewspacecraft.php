@@ -5,9 +5,6 @@
 </head>
 <body>
 
-<p>All Locations:</p>
-
-
 <?php
 
 // Create connection
@@ -22,7 +19,7 @@ if (mysqli_connect_errno($con))
 //mysqli_query($con,"INSERT INTO Celestial_Body VALUES ('Earth', 40, 40)");
 
 $spacecrafts = mysqli_query($con,"SELECT * FROM Spacecraft");
-$ships = mysqli_query($con,"SELECT * FROM Spaceship");
+$ships = mysqli_query($con,"SELECT * FROM Spaceship NATURAL JOIN Spacecraft");
 $stations = mysqli_query($con,"SELECT * FROM Space_Station");
 
 echo "<table border='1'><tr>
@@ -32,9 +29,9 @@ echo "<table border='1'><tr>
 <th>MaxOccupancy</th>
 <th>Model</th>
 <th>Role</th>
-<th>Docked</th></tr>";
+<th>Docked At</th></tr>";
 
-print("Spacecraft");
+print("Spaceships");
 while($row = mysqli_fetch_array($ships))
   {
   echo "<tr>";
@@ -44,7 +41,11 @@ while($row = mysqli_fetch_array($ships))
   echo "<td>" . $row['Max_Occupancy'] . "</td>";
   echo "<td>" . $row['Model'] . "</td>";
   echo "<td>" . $row['Role'] . "</td>";
-  echo "<td>" . $row['Docked'] . "</td>";
+  if (!$row['Station_Docked_At']) {
+    echo "<td>None</td>";
+  } else {
+      echo "<td>" . $row['Station_Docked_At'] . "</td>";
+  }
   //echo "<td><a href='addcraft.php?job=edit&amp;Name= " . $row['Name'] . "'>Edit</a></td>";
   //echo "<td><a onClick= \"return confirm('Do you want to delete this user?')\" href='addloc.php?job=delete&amp;Name= " . $row['Name'] . "'>DELETE</a></td>";
 

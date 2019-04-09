@@ -20,7 +20,7 @@
 </form>
 
 <form action="viewspacecraft.php?job=locations" method="post">
-   <input type="submit" value="View All Spacecraft">
+   <input type="submit" value="View All Spaceships">
 </form><br>
 
 <button onclick="window.location.href = 'login.php';">Log out</button>

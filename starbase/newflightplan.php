@@ -108,6 +108,7 @@ if($_GET["job"] == "fin") {
 
   echo "</select>
   <br><br>
+  <p> Military Time Format: YYYY-MM-DD HH:MM:SS</p><br><br>
   <label>Start Time: </label><input type = 'text' name = 'StartTime'/>
 
   <input type='hidden' name='Start' value = $Start>
