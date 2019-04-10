@@ -13,178 +13,161 @@ Where p.PID = @PID or p.Username = @Username;
 
 Flight Crew
 	View Flight Crew:
-	
-Select p.PID, p.First_Name, p.Last_Name, p.Type, p.Username, c.Role, c.Assigned_Spaceship #Spaceship or spacecraft? Should be ship, rename databse
-From Person as p Natural Join Crew_Member as c
-Where p.Type = 'Flight Crew';
+		Select p.PID, p.First_Name, p.Last_Name, p.Type, p.Username, c.Role, c.Assigned_Spaceship #Spaceship or spacecraft? Should be ship, rename databse
+		From Person as p Natural Join Crew_Member as c
+		Where p.Type = 'Flight Crew';
 
 	View Spaceship:
-	
-Select *
-From Spacecraft Natural Join Spaceship;
+		Select *
+		From Spacecraft Natural Join Spaceship;
 
 	Assign to Spaceship:
-
-Update Crew_Member as c
-Set c.Assigned_Spaceship = @Spacecraft_ID
-Where c.PID = @Our_PID;
+		Update Crew_Member as c
+		Set c.Assigned_Spaceship = @Spacecraft_ID
+		Where c.PID = @Our_PID;
 
 
 Flight Plan:
 	View Flight Plans:
+		Select *
+		From Flight_Plan;
 	
-Select *
-From Flight_Plan;
-	
-	Edit Flight Plan
-	
-Update Flight_Plan as f
-Set f.Start_Time = @Start_Time, f.End_Time = @End_Time, f.
-Where f.Spacecraft_ID = @Our_Spacecraft_ID and  f.Start_Time =  @Our_Start_Time and f.End_Time = @Our_End_Time;
+	Edit Flight Plan:
+		Update Flight_Plan as f
+		Set f.Start_Time = @Start_Time, f.End_Time = @End_Time, f.
+		Where f.Spacecraft_ID = @Our_Spacecraft_ID and  f.Start_Time =  @Our_Start_Time and f.End_Time = @Our_End_Time;
 
-Update Planned_By
-Set Start_Time = @Start_Time, End_Time = @End_Time
-Where Spacecraft_ID = @Our_Spacecraft_ID and Start_Time = @Our_Start_Time and End_Time = @Our_End_Time;
+		Update Planned_By
+		Set Start_Time = @Start_Time, End_Time = @End_Time
+		Where Spacecraft_ID = @Our_Spacecraft_ID and Start_Time = @Our_Start_Time and End_Time = @Our_End_Time;
 
 Insert Ignore into Planned_By Values(@Our_Spacecraft_ID, @Start_Time, @End_Time, @Ground_Crew_PID);
 
 	View All Planning Data:
-		View Spacecraft: See other implementations.
+		View Spaceship:
+			Select *
+			From Spacecraft Natural Join Spaceship;
 		
-		View Locations: See other implementations.
-		
-		View Current Time: See other implementations/Huh??
+		View Locations: 
+			Select *
+			From (Locations Natural Left Join Space_Station) Left Natural Join Celestial_Body;
 	
-	Add New Plan
-	
-Insert Into Flight_Plan Values(@Spacecraft_ID, @Start_Time, @End_Time, @Budget, @Start_Location, @Destination);
-Insert Ignore into Planned_By Values(@Our_Spacecraft_ID, @Start_Time, @End_Time, @Ground_Crew_PID);
+	Add New Plan:
+		Insert Into Flight_Plan Values(@Spacecraft_ID, @Start_Time, @End_Time, @Budget, @Start_Location, @Destination);
+		Insert Ignore into Planned_By Values(@Our_Spacecraft_ID, @Start_Time, @End_Time, @Ground_Crew_PID);
 
-	Delete Plan
+	Delete Plan:
+		Delete From Planned_By
+		Where Spacecraft_ID = @Our_Spacecraft_ID and Start_Time = @Our_Start_Time and End_Time = @Our_End_Time;
 	
-Delete From Flight_Plan
-Where Spacecraft_ID = @Our_Spacecraft_ID and Start_Time = @Our_Start_Time and End_Time = @Our_End_Time;
+		Delete From Flight_Plan
+		Where Spacecraft_ID = @Our_Spacecraft_ID and Start_Time = @Our_Start_Time and End_Time = @Our_End_Time;
 
-Delete From Planned_By
-Where Spacecraft_ID = @Our_Spacecraft_ID and Start_Time = @Our_Start_Time and End_Time = @Our_End_Time;
+
 	
 Adjust World State:
 	Spaceships:
-		View Spaceships
+		View Spaceships:			
+			Select *
+			From Spacecraft Natural Join Spaceship;
 		
-Select *
-From Spacecraft Natural Join Spaceship
-		
-		Add Spaceships
-		
-Insert Into Spacecraft Values(@Name,@Tonnage,@Max_Occupancy);
-@Spacecraft_ID = 
-	Select s.PID
-	From Spacecraft as s
-	Where s.Name = @Name, s.Tonnage = @Tonnage, s.Max_Occupancy = @Max_Occupancy;
-Insert Into Spaceship Values(@Spacecraft_ID, @Model,@Role,@Station_Docked_At);
+		Add Spaceships:
+			Insert Into Spacecraft Values(@Name,@Tonnage,@Max_Occupancy);
+			@Spacecraft_ID = 
+				(Select s.PID
+				From Spacecraft as s
+				Where s.Name = @Name, s.Tonnage = @Tonnage, s.Max_Occupancy = @Max_Occupancy;)
+			Insert Into Spaceship Values(@Spacecraft_ID, @Model,@Role,@Station_Docked_At);
 		
 		Delete Spaceships:
-		
-Delete From Spaceship
-Where Spacecraft_ID = @Spacecraft_ID;
+			Delete From Spaceship
+			Where Spacecraft_ID = @Spacecraft_ID;
 
-Delete From Spacecraft
-Where Spacecraft_ID = @Spacecraft_ID;
+			Delete From Spacecraft
+			Where Spacecraft_ID = @Spacecraft_ID;
 		
 		Edit Spaceships
-		
-Update Spaceship
-Set Model = @Model, Role = @Role, Max_Occupancy = @Max_Occupancy
-Where Spacecraft_ID = @Spacecraft_ID;
+			Update Spaceship
+			Set Model = @Model, Role = @Role, Max_Occupancy = @Max_Occupancy
+			Where Spacecraft_ID = @Spacecraft_ID;
 
-Update Spacecraft
-Set Name = @Name, Tonnage = @Tonnage, Max_Occupancy = @Max_Occupancy
-Where Spaceship = @Spacecraft_ID;
+			Update Spacecraft
+			Set Name = @Name, Tonnage = @Tonnage, Max_Occupancy = @Max_Occupancy
+			Where Spaceship = @Spacecraft_ID;
 		
 		View Spaceship Modules
-		
-Select m.Module_ID
-From Modules as m
-Where m.Spacecraft_ID = @Spacecraft_ID
+			Select m.Module_ID
+			From Modules as m
+			Where m.Spacecraft_ID = @Spacecraft_ID;
 		
 		Add Spaceship Modules
-		
-Insert Into Modules Values(@Spacecraft_ID, @Module_ID);
+			Insert Into Modules Values(@Spacecraft_ID, @Module_ID);
 		
 		Delete Spaceship Modules
-		
-Delete From Modules
-Where Spacecraft_ID = @Spacecraft_ID and Module_ID = @Module_ID;
+			Delete From Modules
+			Where Spacecraft_ID = @Spacecraft_ID and Module_ID = @Module_ID;
 	
 	Locations:
 		Space Station:
 			Add Spacestation:
-			
-Insert Into Spacecraft Values(@Name,@Tonnage,@Max_Occupancy);
-@Spacecraft_ID = 
-	Select s.PID
-	From Spacecraft as s
-	Where s.Name = @Name, s.Tonnage = @Tonnage, s.Max_Occupancy = @Max_Occupancy;
-Insert Into Location(@Location_Name, @X, @Y, @Z);
-Insert Into Space_Station(@Location_Name, @Spacecraft_ID, @Orbits_Celestial_Body);
+				Insert Into Spacecraft Values(@Name,@Tonnage,@Max_Occupancy);
+				@Spacecraft_ID = 
+					Select s.PID
+					From Spacecraft as s
+					Where s.Name = @Name, s.Tonnage = @Tonnage, s.Max_Occupancy = @Max_Occupancy;
+				Insert Into Location(@Location_Name, @X, @Y, @Z);
+				Insert Into Space_Station(@Location_Name, @Spacecraft_ID, @Orbits_Celestial_Body);
 		
 			Delete Space station:
-			
-Delete From Space_Station
-Where Spacecraft_ID = @Spacecraft_ID and Location_Name = @Location_Name;
+				Delete From Space_Station
+				Where Spacecraft_ID = @Spacecraft_ID and Location_Name = @Location_Name;
 
-Delete From Spacecraft
-Where Spacecraft_ID = @Spacecraft_ID;
+				Delete From Spacecraft
+				Where Spacecraft_ID = @Spacecraft_ID;
 
-Delete From Location
-Where Location_Name = @Location_Name;
+				Delete From Location
+				Where Location_Name = @Location_Name;
 			
 			Edit Space Station:
-			
-Update Spacecraft
-Set Name = @Name, Tonnage = @Tonnage, Max_Occupancy = @Max_Occupancy
-Where Spacecraft_ID = @Spacecraft_ID;
+				Update Spacecraft
+				Set Name = @Name, Tonnage = @Tonnage, Max_Occupancy = @Max_Occupancy
+				Where Spacecraft_ID = @Spacecraft_ID;
 
-Update Location
-Set Location_Name = @Location_Name, x = @X, y = @y, z = @z
-Where Location_Name = @Location_Name;
-				
-Update Space_Station
-Set Location_Name = @Location_Name, Orbits_Celestial_Body = @Orbits_Celestial_Body
-Where Spacecraft_ID = @Spacecraft_ID;
+				Update Location
+				Set Location_Name = @Location_Name, x = @X, y = @y, z = @z
+				Where Location_Name = @Location_Name;
+								
+				Update Space_Station
+				Set Location_Name = @Location_Name, Orbits_Celestial_Body = @Orbits_Celestial_Body
+				Where Spacecraft_ID = @Spacecraft_ID;
 
 			View Space stations:
-			
-Select *
-From Spacecraft Natural Join Space_Station;
+				Select *
+				From Spacecraft Natural Join Space_Station;
 			
 		Celestial Body:
 			Add Celestial Body:
-			
-Insert Into Locations Values(@Location_Name, @x, @y, @z);
-Insert Into Celestial Body Values(@Location_Name, @Radius, @Mass);
+				Insert Into Locations Values(@Location_Name, @x, @y, @z);
+				Insert Into Celestial Body Values(@Location_Name, @Radius, @Mass);
 			
 			Delete Celestial_Body:
-			
-Delete From Celestial_Body
-Where Location_Name = @Location_Name;
+				Delete From Celestial_Body
+				Where Location_Name = @Location_Name;
 
-Delete From Location
-Where Location_Name = @Location_Name;
+				Delete From Location
+				Where Location_Name = @Location_Name;
 
 			Edit Celestial Body:
 			
-Update Celestial_Body
-Set Radius = @Radius, Mass = @Mass
-Where Location_Name = @Location_Name;
+				Update Celestial_Body
+				Set Radius = @Radius, Mass = @Mass
+				Where Location_Name = @Location_Name;
 
-Update Location
-Set x = @x, y = @y, z = @z
-Where Location_Name = @Location_Name
-			
+				Update Location
+				Set x = @x, y = @y, z = @z
+				Where Location_Name = @Location_Name;
+							
 			View Celestial Bodies:
-		
-Select *
-From Celestial_Body Natural Join Location;
+				Select *
+				From Celestial_Body Natural Join Location;
 			
