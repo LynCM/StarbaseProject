@@ -23,28 +23,31 @@ if($_GET["job"] == "submitted") {
    $role = $_POST["role"];
    $model = $_POST["model"];
    $tonnage = $_POST["tonnage"];
-   $model = $_POST["model"];
-   
-   mysqli_query($con,"INSERT INTO Spacecraft Values ('$name',$tonnage,$maxocc)");
-   $craftID = mysqli_query($con,
-				"Select s.PID
+   $maxocc = $_POST["maxocc"];
+
+   // Add new spaceship to Spacecraft table
+   mysqli_query($con,"INSERT INTO Spacecraft (Name, Tonnage, Max_Occupancy) Values ('$name',$tonnage,$maxocc)");
+   $result = mysqli_query($con,
+				"Select s.Spacecraft_ID
 				From Spacecraft as s
-				Where s.Name = $Name, s.Tonnage = $tonnage, s.Max_Occupancy = $maxocc;");
-   mysqli_query($con,"INSERT INTO Spaceship Values ($craftID,'$name','$role','$model')");
-   
-   header("Location:viewspacecraft.php");
+				Where s.Name = '$name' and s.Tonnage = $tonnage and s.Max_Occupancy = $maxocc;");   // Get CraftID of the new spaceship
+   $row = mysqli_fetch_array($result);
+   $craftID = $row['Spacecraft_ID'];
+   mysqli_query($con,"INSERT INTO Spaceship (Spacecraft_ID, Model, Role) Values ($craftID,'$name','$role')");   // Add spaceship to Spaceship table
+
+   header("Location:viewspacecraft.php");    // Return to viewing page
 }
 
 mysqli_close($con);
 
 ?>
 <form action="addcraft.php?job=submitted" method="post">
-   <input name="id" type="hidden" value=<?php echo $row['Craft_ID'];?>>
-   Name: <input type="text" name="name" value='<?php echo $row['Name'];?>'><br>
-   Model: <input type="text" name="model" value='<?php echo $row['Model'];?>'><br>
-   Role: <input type="text" name="role" value='<?php echo $row['Role'];?>'><br>
-   Tonnage: <input type="number" name="tonnage" value='<?php echo $row['Tonnage'];?>'><br>
-   MaxOccupancy: <input type="number" name="maxocc" value='<?php echo $row['MaxOccupancy'];?>'><br>
+   Name: <input type="text" name="name"><br>
+   Model: <input type="text" name="model"><br>
+   Role: <input type="text" name="role"><br>
+   Tonnage: <input type="number" name="tonnage"><br>
+   MaxOccupancy: <input type="number" name="maxocc"><br>
+
    <!-- Button to view and select possible space stations to select -->
 
    <input type="submit" value="Submit">
