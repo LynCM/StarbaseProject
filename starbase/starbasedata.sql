@@ -65,7 +65,8 @@ Create Table If Not Exists Spaceship(
 	Role					Varchar(100),
 	Station_Docked_At		Varchar(100),
 	Constraint Spaceship_PK Primary Key(Spacecraft_ID),
-	Constraint Spaceship_FK Foreign Key(Spacecraft_ID) References Spacecraft(Spacecraft_ID)
+	Constraint Spaceship_FK Foreign Key(Spacecraft_ID) References Spacecraft(Spacecraft_ID),
+	Constraint Spaceship_Loc_FK Foreign Key(Station_Docked_At) References Space_Station(Location_Name)
 );
 
 Create Table If Not Exists Cargo(
