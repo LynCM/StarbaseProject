@@ -24,9 +24,14 @@ if($_GET["job"] == "submitted") {
    $model = $_POST["model"];
    $tonnage = $_POST["tonnage"];
    $model = $_POST["model"];
-   $id = $_POST["id"];
-   mysqli_query($con,"INSERT INTO Spaceship Values ('$id','$name','$role','$model')");
-   mysqli_query($con,"INSERT INTO Spacecraft Values ('$id','$name','$tonnage','$maxocc')");
+   
+   mysqli_query($con,"INSERT INTO Spacecraft Values ('$name',$tonnage,$maxocc)");
+   $craftID = mysqli_query($con,
+				"Select s.PID
+				From Spacecraft as s
+				Where s.Name = $Name, s.Tonnage = $tonnage, s.Max_Occupancy = $maxocc;");
+   mysqli_query($con,"INSERT INTO Spaceship Values ($craftID,'$name','$role','$model')");
+   
    header("Location:viewspacecraft.php");
 }
 
@@ -35,7 +40,6 @@ mysqli_close($con);
 ?>
 <form action="addcraft.php?job=submitted" method="post">
    <input name="id" type="hidden" value=<?php echo $row['Craft_ID'];?>>
-   Craft ID: <input type="number" name="id" value='<?php echo $row['Craft_ID'];?>'><br>
    Name: <input type="text" name="name" value='<?php echo $row['Name'];?>'><br>
    Model: <input type="text" name="model" value='<?php echo $row['Model'];?>'><br>
    Role: <input type="text" name="role" value='<?php echo $row['Role'];?>'><br>

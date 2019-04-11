@@ -20,7 +20,7 @@ Step 3:
 		Host: localhost
 		Port: 3306
 		Connection Type: Built-In
-		User: host
+		User: root
 		Password: pancakes
 		Database: "starbase" (if avaliable, if not, leave it blank for now)
 	Click on 'localhost' in the left bar
