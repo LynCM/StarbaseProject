@@ -59,15 +59,7 @@ Create Table If Not Exists Module(
 	Constraint Module_PK Primary Key(Spacecraft_ID, Module_ID),
 	Constraint Module_FK Foreign Key(Spacecraft_ID) References Spacecraft(Spacecraft_ID)
 );
-Create Table If Not Exists Spaceship(
-	Spacecraft_ID			Integer,
-	Model					Varchar(100),
-	Role					Varchar(100),
-	Station_Docked_At		Varchar(100),
-	Constraint Spaceship_PK Primary Key(Spacecraft_ID),
-	Constraint Spaceship_FK Foreign Key(Spacecraft_ID) References Spacecraft(Spacecraft_ID),
-	Constraint Spaceship_Loc_FK Foreign Key(Station_Docked_At) References Space_Station(Location_Name)
-);
+
 
 Create Table If Not Exists Cargo(
 	Cargo_ID				Integer AUTO_INCREMENT,
@@ -79,37 +71,6 @@ Create Table If Not Exists Cargo(
 	Constraint Cargo_PK Primary Key(Cargo_ID),
 	Constraint Cargo_Spacecraft_FK Foreign Key(Spacecraft_ID) References Spacecraft(Spacecraft_ID),
 	Constraint Cargo_Owner_FK Foreign Key(Owner_PID) References Person(PID)
-);
-
-Create Table If Not Exists Crew_Member(
-	PID						Integer,
-	Role					Varchar(100),
-	Assigned_Spacecraft		Integer,
-	Constraint Crew_Member_PK Primary Key(PID),
-	Constraint Crew_Member_Craft_FK Foreign Key(Assigned_Spacecraft) References Spaceship(Spacecraft_ID),
-	Constraint Crew_Member_FK Foreign Key(PID) References Person(PID)
-
-);
-Create Table If Not Exists Contact_Number(
-	PID						Integer,
-	Contact_Number			BigInt,
-	Constraint Contact_Number_PK Primary Key(PID, Contact_Number),
-	Unique(PID, Contact_Number),
-	Constraint Contact_Number_FK Foreign Key(PID) References Person(PID)
-);
-Create Table If Not Exists Flight_Plan(
-	Spacecraft_ID			Integer,
-	Start_Time				Timestamp NOT NULL,
-	End_Time				Timestamp NOT NULL,
-	Budget					Real,
-	Start_Location			Varchar(100),
-	Destination				Varchar(100),
-	Constraint Flight_Plan_PK Primary Key(Spacecraft_ID, Start_Time, End_Time),
-	Unique(Spacecraft_ID, Start_Time, End_Time),
-
-	Constraint Flight_Plan_Spaceship_FK Foreign Key(Spacecraft_ID) References Spaceship(Spacecraft_ID),
-	Constraint Flight_Plan_Start_Location_FK Foreign Key (Start_Location) References Location(Name),
-	Constraint Flight_Plan_Destination_FK Foreign Key(Destination) References Location(Name)
 );
 
 Create Table If Not Exists Celestial_Body(
@@ -130,6 +91,49 @@ Create Table If Not Exists Space_Station(
 	Constraint Space_Station_Location_FK Foreign Key(Location_Name) References Location(Name)
 
 );
+
+Create Table If Not Exists Spaceship(
+	Spacecraft_ID			Integer,
+	Model					Varchar(100),
+	Role					Varchar(100),
+	Station_Docked_At		Varchar(100),
+	Constraint Spaceship_PK Primary Key(Spacecraft_ID),
+	Constraint Spaceship_FK Foreign Key(Spacecraft_ID) References Spacecraft(Spacecraft_ID),
+	Constraint Spaceship_Loc_FK Foreign Key(Station_Docked_At) References Space_Station(Location_Name)
+);
+
+Create Table If Not Exists Crew_Member(
+	PID						Integer,
+	Role					Varchar(100),
+	Assigned_Spacecraft		Integer,
+	Constraint Crew_Member_PK Primary Key(PID),
+	Constraint Crew_Member_Craft_FK Foreign Key(Assigned_Spacecraft) References Spaceship(Spacecraft_ID),
+	Constraint Crew_Member_FK Foreign Key(PID) References Person(PID)
+
+);
+Create Table If Not Exists Contact_Number(
+	PID						Integer,
+	Contact_Number			BigInt,
+	Constraint Contact_Number_PK Primary Key(PID, Contact_Number),
+	Unique(PID, Contact_Number),
+	Constraint Contact_Number_FK Foreign Key(PID) References Person(PID)
+);
+
+Create Table If Not Exists Flight_Plan(
+	Spacecraft_ID			Integer,
+	Start_Time				Timestamp NOT NULL,
+	End_Time				Timestamp NOT NULL,
+	Budget					Real,
+	Start_Location			Varchar(100),
+	Destination				Varchar(100),
+	Constraint Flight_Plan_PK Primary Key(Spacecraft_ID, Start_Time, End_Time),
+	Unique(Spacecraft_ID, Start_Time, End_Time),
+
+	Constraint Flight_Plan_Spaceship_FK Foreign Key(Spacecraft_ID) References Spaceship(Spacecraft_ID),
+	Constraint Flight_Plan_Start_Location_FK Foreign Key (Start_Location) References Location(Name),
+	Constraint Flight_Plan_Destination_FK Foreign Key(Destination) References Location(Name)
+);
+
 Create Table If Not Exists Guided_By(
 	Spacecraft_ID			Integer,
 	Ground_Control_PID		Integer,
@@ -244,7 +248,7 @@ Insert Into Planned_By (Spacecraft_ID, Flight_Plan_Start_Time, Flight_Plan_End_T
 (1, '2019-04-15 15-00-00', '2019-04-18 18-00-00', 1),
 (2, '2019-04-15 15-00-00', '2019-04-18 18-00-00', 1);
 
-INSERT INTO Transports (Spacecraft_ID, Flight_Plan_Start_Time, Flight_Plan_End_Time, Client_PID) Values 
+INSERT INTO Transports (Spacecraft_ID, Flight_Plan_Start_Time, Flight_Plan_End_Time, Client_PID) Values
 (1, '2019-04-15 15:00:00', '2019-04-18 18:00:00',4);
 
 
